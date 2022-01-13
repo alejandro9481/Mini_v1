@@ -1,7 +1,11 @@
 package myProject;
 
+
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * This class is used for ...
@@ -11,6 +15,7 @@ import java.awt.*;
 public class GUI extends JFrame {
 
     private Header headerProject;
+    private JPanel panelDados;
 
     /**
      * Constructor of GUI class
@@ -20,7 +25,7 @@ public class GUI extends JFrame {
 
         //Default JFrame configuration
         this.setTitle("The Title app");
-        this.setSize(200,100);
+        this.setSize(600,800);
         //this.pack();
         this.setResizable(true);
         this.setVisible(true);
@@ -38,7 +43,14 @@ public class GUI extends JFrame {
         //Set up JComponents
         headerProject = new Header("Header ...", Color.BLACK);
 
-        this.add(headerProject,BorderLayout.NORTH); //Change this line if you change JFrame Container's Layout
+
+        panelDados = new JPanel();
+        panelDados.setPreferredSize(new Dimension(300,180));
+        panelDados.setBorder(BorderFactory.createTitledBorder("Tus Dados"));
+        panelDados.add(new JButton("Sup.1"));
+        panelDados.add(new JButton("Sup.1"));
+        panelDados.add(new JButton("Sup.1"));
+        this.add(panelDados,BorderLayout.CENTER);//Change this line if you change JFrame Container's Layout
     }
 
     /**
