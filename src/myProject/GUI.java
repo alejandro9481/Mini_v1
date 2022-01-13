@@ -3,6 +3,8 @@ package myProject;
 
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +17,7 @@ import java.awt.event.ActionListener;
 public class GUI extends JFrame {
 
     private Header headerProject;
-    private JPanel panelDados;
+    private JPanel panelDados,panelDados2,panelDados3,panelDados4,panelDados5;
 
     /**
      * Constructor of GUI class
@@ -25,7 +27,7 @@ public class GUI extends JFrame {
 
         //Default JFrame configuration
         this.setTitle("The Title app");
-        this.setSize(600,800);
+        this.setSize(800,600);
         //this.pack();
         this.setResizable(true);
         this.setVisible(true);
@@ -45,12 +47,46 @@ public class GUI extends JFrame {
 
 
         panelDados = new JPanel();
-        panelDados.setPreferredSize(new Dimension(300,180));
-        panelDados.setBorder(BorderFactory.createTitledBorder("Tus Dados"));
+        panelDados.setPreferredSize(new Dimension(266,300));
+        panelDados.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         panelDados.add(new JButton("Sup.1"));
         panelDados.add(new JButton("Sup.1"));
         panelDados.add(new JButton("Sup.1"));
-        this.add(panelDados,BorderLayout.CENTER);//Change this line if you change JFrame Container's Layout
+        this.add(panelDados,BorderLayout.CENTER);
+
+        panelDados2 = new JPanel();
+        panelDados2.setPreferredSize(new Dimension(300,100));
+        panelDados2.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        panelDados2.add(new JButton("Sup.1"));
+        panelDados2.add(new JButton("Sup.1"));
+        panelDados2.add(new JButton("Sup.1"));
+        this.add(panelDados2,BorderLayout.NORTH);
+
+        panelDados3 = new JPanel();
+        panelDados3.setPreferredSize(new Dimension(266,300));
+        panelDados3.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        panelDados3.add(new JButton("Sup.1"));
+        panelDados3.add(new JButton("Sup.1"));
+        panelDados3.add(new JButton("Sup.1"));
+        this.add(panelDados3,BorderLayout.WEST);
+
+        panelDados4 = new JPanel();
+        panelDados4.setPreferredSize(new Dimension(266,300));
+        panelDados4.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+
+        panelDados4.add(new JButton("Sup.1"));
+        panelDados4.add(new JButton("Sup.1"));
+        panelDados4.add(new JButton("Sup.1"));
+        this.add(panelDados4,BorderLayout.EAST);
+
+        panelDados5 = new JPanel();
+        panelDados5.setPreferredSize(new Dimension(300,150));
+        panelDados5.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+
+        panelDados5.add(new JButton("Sup.1"));
+        panelDados5.add(new JButton("Sup.1"));
+        panelDados5.add(new JButton("Sup.1"));
+        this.add(panelDados5,BorderLayout.SOUTH);
     }
 
     /**
