@@ -140,6 +140,7 @@ public class GUI extends JFrame {
         public void actionPerformed(ActionEvent eventAction) {
             // TODO Auto-generated method stub
             //responde a los eventos de botones salir, reinicio, periodo e inicio
+            /*
             if(eventAction.getSource() == salir) {
                 System.exit(0);
             }else if(eventAction.getSource() == reinicio){
@@ -149,7 +150,7 @@ public class GUI extends JFrame {
 
             }else if(eventAction.getSource() == inicio){
 
-            }
+            }*/
         }
 
         /**
