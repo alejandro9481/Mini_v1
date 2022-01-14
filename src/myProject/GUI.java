@@ -6,8 +6,15 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  * This class is used for ...
@@ -101,9 +108,41 @@ public class GUI extends JFrame {
     }
 
     /**
+     * The Class Escucha.
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
-    private class Escucha {
+    private class Escuchas extends MouseAdapter implements ActionListener, MouseListener, MouseMotionListener{
 
+        /**
+         * Action performed.
+         *
+         * @param eventAction the event action
+         */
+        @Override
+        public void actionPerformed(ActionEvent eventAction) {
+            // TODO Auto-generated method stub
+            //responde a los eventos de botones salir, reinicio, periodo e inicio
+            if(eventAction.getSource() == salir) {
+                System.exit(0);
+            }else if(eventAction.getSource() == reinicio){
+
+
+            }else if(eventAction.getSource() == ayuda){
+
+            }else if(eventAction.getSource() == inicio){
+
+            }
+        }
+
+        /**
+         * Mouse clicked.
+         *
+         * @param eventMouse the event mouse
+         */
+        @Override
+        public void mouseClicked(MouseEvent eventMouse) {
+            // TODO Auto-generated method stub
+
+        }
     }
 }
