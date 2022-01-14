@@ -28,6 +28,7 @@ public class Dado extends JButton{
     private static int dadoSize = 80;
     private static int maxDados = 10;
     private int cara;
+    private int id;
     private ImageIcon image;
 
 
@@ -36,8 +37,9 @@ public class Dado extends JButton{
      * Method that generate
      *
      */
-    public Dado(int caraDado) {
+    public Dado(int caraDado, int idDado) {
         this.cara = caraDado;
+        this.id = idDado;
 
         image = new ImageIcon("src/resources/"+caraDado+".png");
     }
@@ -68,4 +70,8 @@ public class Dado extends JButton{
     public void setImage(ImageIcon image) {
         this.image = image;
     }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 }
