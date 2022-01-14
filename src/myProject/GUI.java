@@ -18,6 +18,9 @@ public class GUI extends JFrame {
 
     private Header headerProject;
     private JPanel panelDados,panelDados2,panelDados3,panelDados4,panelDados5;
+    private ImageIcon imagenDado;
+    private JLabel dado1, dado2,dado3,dado4,dado5,dado6;
+    private Icon icono;
 
     /**
      * Constructor of GUI class
@@ -49,9 +52,24 @@ public class GUI extends JFrame {
         panelDados = new JPanel();
         panelDados.setPreferredSize(new Dimension(266,300));
         panelDados.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-        panelDados.add(new JButton("Sup.1"));
-        panelDados.add(new JButton("Sup.1"));
-        panelDados.add(new JButton("Sup.1"));
+
+        imagenDado = new ImageIcon(getClass().getResource("/resources/dado.png"));
+       dado1 = new JLabel();  // transform it back
+        dado2 = new JLabel(imagenDado);
+        dado3 = new JLabel(imagenDado);
+        dado4 = new JLabel(imagenDado);
+        dado5 = new JLabel(imagenDado);
+        dado6 = new JLabel(imagenDado);
+        dado1.setFont( new Font("TimesRoman",Font.PLAIN,14));
+
+
+
+        panelDados.add(dado1);
+        panelDados.add(dado2);
+        panelDados.add(dado3);
+        panelDados.add(dado4);
+        panelDados.add(dado5);
+        panelDados.add(dado6);
         this.add(panelDados,BorderLayout.CENTER);
 
         panelDados2 = new JPanel();
