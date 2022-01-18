@@ -25,13 +25,10 @@ public class Dado extends JButton{
     /**
      *	The attributes
      */
-    private static int dadoSize = 80;
-    private static int maxDados = 10;
-    private int cara;
-    private int id;
+    private static int dadoSize = 80, maxDados = 10;
+    private int cara, id;
     private ImageIcon image;
-
-
+    private boolean zonaActiva, zonaInactiva, dadosUtilizados;
 
     /**
      * Method that generate
@@ -74,4 +71,16 @@ public class Dado extends JButton{
     public int getId() { return id; }
 
     public void setId(int id) { this.id = id; }
+
+    public boolean isZonaActiva() { return zonaActiva; }
+
+    public void setZonaActiva(boolean zonaActiva) { this.zonaActiva = zonaActiva; }
+
+    public boolean isZonaInactiva() { return zonaInactiva; }
+
+    public void setZonaInactiva(boolean zonaInactiva) { this.zonaInactiva = zonaInactiva; }
+
+    public boolean isDadosUtilizados() { return dadosUtilizados; }
+
+    public void setDadosUtilizados(boolean dadosUtilizados) { this.dadosUtilizados = dadosUtilizados; }
 }
