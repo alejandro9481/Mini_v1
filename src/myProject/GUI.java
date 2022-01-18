@@ -94,9 +94,10 @@ public class GUI extends JFrame {
         this.add(panelZonaActiva,BorderLayout.CENTER);
 
         panelPuntaje = new JPanel();
-        panelPuntaje.setPreferredSize(new Dimension(300,100));
+        panelPuntaje.setPreferredSize(new Dimension(300,120));
         //panelPuntaje.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         panelPuntaje.setBorder(BorderFactory.createTitledBorder("Tablero de Memoria"));
+        panelPuntaje.add(new JButton( new ImageIcon ("src/resources/MarcadorPuntaje.png")));
 
         this.add(panelPuntaje,BorderLayout.NORTH);
 
