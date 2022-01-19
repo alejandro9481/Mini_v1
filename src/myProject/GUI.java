@@ -1,19 +1,13 @@
 package myProject;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.*;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.Timer;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -67,7 +61,7 @@ public class GUI extends JFrame {
         //panelZonaActiva.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         panelZonaActiva.setBorder(BorderFactory.createTitledBorder("Zona activa"));
 
-        imagenDado = new ImageIcon(getClass().getResource("/resources/1.png"));
+        imagenDado = new ImageIcon(getClass().getResource("/resources/caras/1.png"));
         dado1 = new JLabel(imagenDado);  // transform it back
         dado2 = new JLabel(imagenDado);
         dado3 = new JLabel(imagenDado);
