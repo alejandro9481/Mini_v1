@@ -38,7 +38,7 @@ public class Dado extends JButton{
         this.cara = caraDado;
         this.id = idDado;
 
-        image = new ImageIcon("src/resources/"+caraDado+".png");
+        image = new ImageIcon("src/resources/caras/"+caraDado+".png");
     }
 
     /**
@@ -48,7 +48,7 @@ public class Dado extends JButton{
     public int getCara() {
         Random aleatorio = new Random();
         cara = aleatorio.nextInt(6) + 1;
-        image = new ImageIcon("src/resources/"+cara+".png");
+        image = new ImageIcon("src/resources/caras/"+cara+".png");
         return cara;
     }
 

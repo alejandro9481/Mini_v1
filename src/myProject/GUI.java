@@ -1,8 +1,12 @@
 package myProject;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,32 +21,49 @@ import javax.swing.JTextField;
  * @version v.1.0.0 date:21/11/2021
  */
 public class GUI extends JFrame {
+    public static final String ayudita = "src/resources/help.png";
 
-    private Header headerProject;
-    private JPanel panelDados,panelPuntaje,panelZonaInactiva, panelZonaActiva,panelDadosUtilizados,panelAyuda;
-    private ImageIcon imagenDado;
-    private JLabel dado1, dado2,dado3,dado4,dado5,dado6,dado7,dado8,dado9,dado10;
-    private Icon icono;
-    private Escucha escucha;
+    private JPanel panelPuntaje,panelZonaInactiva, panelZonaActiva,panelDadosUtilizados,panelAyuda;
+    private JLabel dado1, dado2,dado3,dado4,dado5,dado6,dado7,dado8,dado9,dado10,puntuacion;
     private JTextField info;
     private JButton tirar, ayuda;
     private JTextArea mensajes;
-
+    private ImageIcon imagenDado;
+    private Header headerProject;
+    private Icon icono;
+    private Escucha escucha;
+    private BufferedImage bufferImage = null;
+    private JFrame miMisma = this;
+    private Ayuda ventanaAyuda = new Ayuda(miMisma);
 
     /**
      * Constructor of GUI class
      */
     public GUI(){
-        initGUI();
 
-        //Default JFrame configuration
-        this.setTitle("The Title app");
-        this.setSize(1000,600);
-        //this.pack();
-        this.setResizable(true);
-        this.setVisible(true);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        try {
+            bufferImage = ImageIO.read(new File(ayudita));
+
+            initGUI();
+
+            //Default JFrame configuration
+            this.setTitle("The Title app");
+            this.setSize(1000,600);
+            //this.pack();
+            this.setResizable(true);
+            this.setVisible(true);
+            this.setLocationRelativeTo(null);
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            //this.setUndecorated(true);
+            //pack();
+            //this.setResizable(false);
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            JOptionPane.showMessageDialog(null, "No se puede continuar");
+        }
+
     }
 
     /**
@@ -50,6 +71,11 @@ public class GUI extends JFrame {
      * create Listener and control Objects used for the GUI class
      */
     private void initGUI() {
+        //definir Window container y layout
+
+        //crear el escucha
+        escucha = new Escucha();
+
         //Set up JFrame Container's Layout
         //Create Listener Object and Control Object
         //Set up JComponents
@@ -91,7 +117,7 @@ public class GUI extends JFrame {
         panelPuntaje.setPreferredSize(new Dimension(300,120));
         //panelPuntaje.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         panelPuntaje.setBorder(BorderFactory.createTitledBorder("Tablero de Memoria"));
-        panelPuntaje.add(new JButton( new ImageIcon ("src/resources/MarcadorPuntaje.png")));
+        panelPuntaje.add(new JButton( new ImageIcon ("src/resources/puntajes/MarcadorPuntaje_0.png")));
 
         this.add(panelPuntaje,BorderLayout.NORTH);
 
@@ -128,6 +154,15 @@ public class GUI extends JFrame {
         this.add(panelAyuda,BorderLayout.SOUTH);
     }
 
+    private void iniciarJuego() {
+        for(int i=0; i<3; i++){
+
+        }
+        for(int i=0; i<7; i++){
+
+        }
+    }
+
     /**
      * Main process of the Java program
      * @param args Object used in order to send input data from command line when
@@ -154,17 +189,17 @@ public class GUI extends JFrame {
         public void actionPerformed(ActionEvent eventAction) {
             // TODO Auto-generated method stub
             //responde a los eventos de botones salir, reinicio, periodo e inicio
-            /*
-            if(eventAction.getSource() == salir) {
-                System.exit(0);
-            }else if(eventAction.getSource() == reinicio){
 
+            if(eventAction.getSource() == tirar){
+                //llamar a la funcion revolver los dados
+                iniciarJuego();
 
             }else if(eventAction.getSource() == ayuda){
+                //llamar a la ventana ayuda
+                ventanaAyuda.setVisible(true);
+                miMisma.setEnabled(false);
+            }
 
-            }else if(eventAction.getSource() == inicio){
-
-            }*/
         }
 
         /**
