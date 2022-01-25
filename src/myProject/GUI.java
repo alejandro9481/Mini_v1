@@ -22,19 +22,20 @@ import javax.swing.JTextField;
  */
 public class GUI extends JFrame {
     public static final String ayudita = "src/resources/help.png";
+    public static final String fondito = "src/resources/fondo.png";
 
     private JPanel panelPuntaje,panelZonaInactiva, panelZonaActiva,panelDadosUtilizados,panelAyuda;
-    private JLabel dado1, dado2,dado3,dado4,dado5,dado6,dado7,dado8,dado9,dado10,puntuacion;
-    private JTextField info;
-    private JButton tirar, ayuda;
+    private JLabel puntuacion, valorPuntuacion;
+    private Dado [] bolsaDados = null;
+    private JButton tirar, ayudaImagen;
     private JTextArea mensajes;
     private ImageIcon imagenDado;
     private Header headerProject;
     private Icon icono;
     private Escucha escucha;
-    private BufferedImage bufferImage = null;
-    private JFrame miMisma = this;
-    private Ayuda ventanaAyuda = new Ayuda(miMisma);
+    private BufferedImage bufferImage ;
+    private JFrame miMismo = this;
+    private Ayuda ventanaAyuda = new Ayuda(miMismo);
 
     /**
      * Constructor of GUI class
@@ -81,85 +82,95 @@ public class GUI extends JFrame {
         //Set up JComponents
         headerProject = new Header("Header ...", Color.BLACK);
 
-
-        panelZonaActiva = new JPanel();
-        panelZonaActiva.setPreferredSize(new Dimension(400,300));
-        //panelZonaActiva.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-        panelZonaActiva.setBorder(BorderFactory.createTitledBorder("Zona activa"));
-
-        imagenDado = new ImageIcon(getClass().getResource("/resources/caras/1.png"));
-        dado1 = new JLabel(imagenDado);  // transform it back
-        dado2 = new JLabel(imagenDado);
-        dado3 = new JLabel(imagenDado);
-        dado4 = new JLabel(imagenDado);
-        dado5 = new JLabel(imagenDado);
-        dado6 = new JLabel(imagenDado);
-        dado7 = new JLabel(imagenDado);
-        dado8 = new JLabel(imagenDado);
-        dado9 = new JLabel(imagenDado);
-        dado10 = new JLabel(imagenDado);
-
-
-        panelZonaActiva.add(dado1);
-        panelZonaActiva.add(dado2);
-        panelZonaActiva.add(dado3);
-        panelZonaActiva.add(dado4);
-        panelZonaActiva.add(dado5);
-        panelZonaActiva.add(dado6);
-        panelZonaActiva.add(dado7);
-        panelZonaActiva.add(dado8);
-        panelZonaActiva.add(dado9);
-        panelZonaActiva.add(dado10);
-
-        this.add(panelZonaActiva,BorderLayout.CENTER);
-
+        //Zona del puntaje y de la marza
         panelPuntaje = new JPanel();
         panelPuntaje.setPreferredSize(new Dimension(300,120));
         //panelPuntaje.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         panelPuntaje.setBorder(BorderFactory.createTitledBorder("Tablero de Memoria"));
-        panelPuntaje.add(new JButton( new ImageIcon ("src/resources/puntajes/MarcadorPuntaje_0.png")));
+        panelPuntaje.add(new JLabel( new ImageIcon ("src/resources/puntajes/MarcadorPuntaje_0.png")));
 
+            //Puntajes
+            puntuacion = new JLabel("  Puntuacion:  ");
+            valorPuntuacion = new JLabel("     "+"50");// puntajes 1 3 6 10 15 21
+
+            panelPuntaje.add(puntuacion);
+            panelPuntaje.add(valorPuntuacion);
+
+        panelPuntaje.setEnabled(false);//zona en donde no hay interacción
         this.add(panelPuntaje,BorderLayout.NORTH);
 
+
+        //Zona de los dados activos
+        panelZonaActiva = new JPanel();
+        panelZonaActiva.setPreferredSize(new Dimension(400,300));
+        //panelZonaActiva.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        panelZonaActiva.setBorder(BorderFactory.createTitledBorder("Zona activa"));
+        this.add(panelZonaActiva,BorderLayout.CENTER);
+
+
+        //Zona de los dados Utilizados
         panelDadosUtilizados = new JPanel();
         panelDadosUtilizados.setPreferredSize(new Dimension(400,300));
         //panelDadosUtilizados.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         panelDadosUtilizados.setBorder(BorderFactory.createTitledBorder("Dados Utilizados"));
-        panelDadosUtilizados.add(new JButton("Sup.1"));
-        panelDadosUtilizados.add(new JButton("Sup.1"));
-        panelDadosUtilizados.add(new JButton("Sup.1"));
 
+        panelDadosUtilizados.setEnabled(false);//zona en donde no hay interacción
         this.add(panelDadosUtilizados,BorderLayout.WEST);
 
 
-
+        //Zona de los dados inactivos
         panelZonaInactiva = new JPanel();
         panelZonaInactiva.setPreferredSize(new Dimension(200,300));
         //panelZonaInactiva.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         panelZonaInactiva.setBorder(BorderFactory.createTitledBorder("Zona inactiva"));
 
-        panelZonaInactiva.add(dado8);
-        panelZonaInactiva.add(dado9);
-        panelZonaInactiva.add(dado10);
         this.add(panelZonaInactiva,BorderLayout.EAST);
 
+
+        //panel Ayuda que contiene 2 botones y el JText
         panelAyuda = new JPanel();
-        panelAyuda.setPreferredSize(new Dimension(300,150));
+        panelAyuda.setPreferredSize(new Dimension(300,200));
         //panelAyuda.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         panelAyuda.setBorder(BorderFactory.createTitledBorder("Zona ayuda"));
 
-        panelAyuda.add(new JButton("Lanzar"));
-        panelAyuda.add(new JButton("JTextField"));
-        panelAyuda.add(new JButton("ayuda"));
+            //Trirar los dados
+            tirar = new JButton("tirar");
+            tirar.addActionListener(escucha);
+            panelAyuda.add(tirar);
+
+            //Area de texto
+            mensajes = new JTextArea(10,22);
+            mensajes.setText("Presiona en el botón ' tirar ' para iniciar.\n");
+            mensajes.setEditable(false);
+            JScrollPane scroll = new JScrollPane(mensajes);
+            panelAyuda.add(scroll);
+
+            //Mostrar la ayuda al usuario
+            ayudaImagen = new JButton("ayuda");
+            ayudaImagen.addActionListener(escucha);
+            panelAyuda.add(ayudaImagen);
+
         this.add(panelAyuda,BorderLayout.SOUTH);
+
+
+
+
+
     }
 
     private void iniciarJuego() {
-        for(int i=0; i<3; i++){
-
+        Dado [] nuevosDados = new Dado[10];
+        for(int i=0; i<10; i++){
+            nuevosDados[i] = new Dado(i+1);
+            bolsaDados[i] = nuevosDados[i];
+            bolsaDados[i].getCara();
         }
-        for(int i=0; i<7; i++){
 
+        for(int i=10; i>7; i--){
+            panelZonaInactiva.add(bolsaDados[i-1]);
+        }
+        for(int i=10; i<7; i++){
+            panelZonaActiva.add(bolsaDados[i]);
         }
     }
 
@@ -178,7 +189,8 @@ public class GUI extends JFrame {
      * The Class Escucha.
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
-    private class Escucha extends MouseAdapter implements ActionListener, MouseListener, MouseMotionListener{
+    //, MouseListener, MouseMotionListener
+    private class Escucha extends MouseAdapter implements ActionListener{
 
         /**
          * Action performed.
@@ -194,12 +206,12 @@ public class GUI extends JFrame {
                 //llamar a la funcion revolver los dados
                 iniciarJuego();
 
-            }else if(eventAction.getSource() == ayuda){
+            }else if(eventAction.getSource() == ayudaImagen){
                 //llamar a la ventana ayuda
+                miMismo.setEnabled(false);
                 ventanaAyuda.setVisible(true);
-                miMisma.setEnabled(false);
-            }
 
+            }
         }
 
         /**
@@ -210,7 +222,85 @@ public class GUI extends JFrame {
         @Override
         public void mouseClicked(MouseEvent eventMouse) {
             // TODO Auto-generated method stub
+            Dado dadoSeleccionado = (Dado) eventMouse.getSource();
+        }
 
+        private class EscuchaMeeple extends MouseAdapter{
+            /**
+             * Mouse clicked.
+             *
+             * @param eventMouse the event mouse
+             */
+            @Override
+            public void mouseClicked(MouseEvent eventMouse) {
+                // TODO Auto-generated method stub
+                Dado dadoSeleccionado = (Dado) eventMouse.getSource();
+            }
+        }
+
+        private class EscuchaDragon extends MouseAdapter{
+            /**
+             * Mouse clicked.
+             *
+             * @param eventMouse the event mouse
+             */
+            @Override
+            public void mouseClicked(MouseEvent eventMouse) {
+                // TODO Auto-generated method stub
+                Dado dadoSeleccionado = (Dado) eventMouse.getSource();
+            }
+        }
+
+        private class EscuchaCorazon extends MouseAdapter{
+            /**
+             * Mouse clicked.
+             *
+             * @param eventMouse the event mouse
+             */
+            @Override
+            public void mouseClicked(MouseEvent eventMouse) {
+                // TODO Auto-generated method stub
+                Dado dadoSeleccionado = (Dado) eventMouse.getSource();
+            }
+        }
+
+        private class EscuchaCohete extends MouseAdapter{
+            /**
+             * Mouse clicked.
+             *
+             * @param eventMouse the event mouse
+             */
+            @Override
+            public void mouseClicked(MouseEvent eventMouse) {
+                // TODO Auto-generated method stub
+                Dado dadoSeleccionado = (Dado) eventMouse.getSource();
+            }
+        }
+
+        private class EscuchaSuperheroe extends MouseAdapter{
+            /**
+             * Mouse clicked.
+             *
+             * @param eventMouse the event mouse
+             */
+            @Override
+            public void mouseClicked(MouseEvent eventMouse) {
+                // TODO Auto-generated method stub
+                Dado dadoSeleccionado = (Dado) eventMouse.getSource();
+            }
+        }
+
+        private class Escucha42 extends MouseAdapter{
+            /**
+             * Mouse clicked.
+             *
+             * @param eventMouse the event mouse
+             */
+            @Override
+            public void mouseClicked(MouseEvent eventMouse) {
+                // TODO Auto-generated method stub
+                Dado dadoSeleccionado = (Dado) eventMouse.getSource();
+            }
         }
     }
 }

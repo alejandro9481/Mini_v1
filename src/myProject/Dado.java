@@ -27,18 +27,16 @@ public class Dado extends JButton{
      */
     private static int dadoSize = 80, maxDados = 10;
     private int cara, id;
-    private ImageIcon image;
+    private ImageIcon image ;
     private boolean zonaActiva, zonaInactiva, dadosUtilizados;
 
     /**
      * Method that generate
      *
      */
-    public Dado(int caraDado, int idDado) {
-        this.cara = caraDado;
+    public Dado(int idDado) {
         this.id = idDado;
 
-        image = new ImageIcon("src/resources/caras/"+caraDado+".png");
     }
 
     /**

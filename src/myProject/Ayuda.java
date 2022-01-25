@@ -22,7 +22,7 @@ public class Ayuda extends JFrame{
     private Escucha escucha;
     private JFrame GUI;
 
-    public Ayuda (JFrame GeekOutMasters) {
+    public Ayuda (JFrame GUI) {
         try {
             ejemplo = ImageIO.read(new File(myProject.GUI.ayudita));
             this.GUI = GUI;
@@ -35,14 +35,15 @@ public class Ayuda extends JFrame{
             pack();
             this.setResizable(false);
             this.setLocationRelativeTo(null);
-            this.setVisible(true);
+            this.setVisible(false);
+            //this.setVisible(true);
+
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
-
 
     private void intitGUI() {
         //window container y layout
@@ -68,6 +69,7 @@ public class Ayuda extends JFrame{
             // TODO Auto-generated method stub
             //evento boton volver
             //activar la ventana GUI y hacer invisible ayuda
+
             GUI.setEnabled(true);
             setVisible(false);
         }
