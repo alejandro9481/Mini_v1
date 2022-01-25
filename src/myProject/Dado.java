@@ -34,9 +34,12 @@ public class Dado extends JButton{
      * Method that generate
      *
      */
-    public Dado(int idDado) {
+    public Dado(int idDado, int cara) {
         this.id = idDado;
+        this.cara = cara;
 
+        getImage();
+        getCara();
     }
 
     /**
@@ -46,7 +49,6 @@ public class Dado extends JButton{
     public int getCara() {
         Random aleatorio = new Random();
         cara = aleatorio.nextInt(6) + 1;
-        image = new ImageIcon("src/resources/caras/"+cara+".png");
         return cara;
     }
 
@@ -55,7 +57,7 @@ public class Dado extends JButton{
      * @return one of six images from the Dado
      */
     public ImageIcon getImage() {
-        return image;
+        return image = new ImageIcon("src/resources/caras/"+cara+".png");
     }
 
     /**

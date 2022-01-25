@@ -26,12 +26,16 @@ public class GUI extends JFrame {
 
     private JPanel panelPuntaje,panelZonaInactiva, panelZonaActiva,panelDadosUtilizados,panelAyuda;
     private JLabel puntuacion, valorPuntuacion;
-    private Dado [] bolsaDados = null;
+
     private JButton tirar, ayudaImagen;
     private JTextArea mensajes;
     private ImageIcon imagenDado;
     private Header headerProject;
     private Icon icono;
+
+    private GeekOutMasters control = new GeekOutMasters();
+    private Dado [] bolsaDados = control.revolver();
+
     private Escucha escucha;
     private BufferedImage bufferImage ;
     private JFrame miMismo = this;
@@ -96,17 +100,8 @@ public class GUI extends JFrame {
             panelPuntaje.add(puntuacion);
             panelPuntaje.add(valorPuntuacion);
 
-        panelPuntaje.setEnabled(false);//zona en donde no hay interacción
+        //panelPuntaje.setEnabled(false);//zona en donde no hay interacción
         this.add(panelPuntaje,BorderLayout.NORTH);
-
-
-        //Zona de los dados activos
-        panelZonaActiva = new JPanel();
-        panelZonaActiva.setPreferredSize(new Dimension(400,300));
-        //panelZonaActiva.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-        panelZonaActiva.setBorder(BorderFactory.createTitledBorder("Zona activa"));
-        this.add(panelZonaActiva,BorderLayout.CENTER);
-
 
         //Zona de los dados Utilizados
         panelDadosUtilizados = new JPanel();
@@ -114,15 +109,33 @@ public class GUI extends JFrame {
         //panelDadosUtilizados.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         panelDadosUtilizados.setBorder(BorderFactory.createTitledBorder("Dados Utilizados"));
 
-        panelDadosUtilizados.setEnabled(false);//zona en donde no hay interacción
+        //panelDadosUtilizados.setEnabled(false);//zona en donde no hay interacción
         this.add(panelDadosUtilizados,BorderLayout.WEST);
 
+        //Zona de los dados activos
+        panelZonaActiva = new JPanel();
+        panelZonaActiva.setPreferredSize(new Dimension(400,300));
+        //panelZonaActiva.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        panelZonaActiva.setBorder(BorderFactory.createTitledBorder("Zona activa"));
+
+        /*
+        for(int i=0; i<7; i++){
+            panelZonaActiva.add(new JLabel(bolsaDados[i].getImage()));
+            //System.out.println (bolsaDados[i].getId());
+        }*/
+
+        this.add(panelZonaActiva,BorderLayout.CENTER);
 
         //Zona de los dados inactivos
         panelZonaInactiva = new JPanel();
         panelZonaInactiva.setPreferredSize(new Dimension(200,300));
         //panelZonaInactiva.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         panelZonaInactiva.setBorder(BorderFactory.createTitledBorder("Zona inactiva"));
+        /*
+        for(int i=10; i>7; i--){
+            panelZonaInactiva.add(new JLabel(bolsaDados[i-1].getImage()));
+            //System.out.println (bolsaDados[i-1].getId());
+        }*/
 
         this.add(panelZonaInactiva,BorderLayout.EAST);
 
@@ -151,27 +164,25 @@ public class GUI extends JFrame {
             panelAyuda.add(ayudaImagen);
 
         this.add(panelAyuda,BorderLayout.SOUTH);
-
-
-
-
-
     }
 
     private void iniciarJuego() {
-        Dado [] nuevosDados = new Dado[10];
-        for(int i=0; i<10; i++){
-            nuevosDados[i] = new Dado(i+1);
-            bolsaDados[i] = nuevosDados[i];
-            bolsaDados[i].getCara();
+        //this.remove(panelZonaInactiva);
+        //panelZonaInactiva.com
+
+        //this.remove(panelZonaActiva);
+        //
+        for(int i=0; i<7; i++){
+            panelZonaActiva.add(new JLabel(bolsaDados[i].getImage()));
+            //System.out.println (bolsaDados[i].getId());
         }
+        this.add(panelZonaActiva,BorderLayout.CENTER);
 
         for(int i=10; i>7; i--){
-            panelZonaInactiva.add(bolsaDados[i-1]);
+            panelZonaInactiva.add(new JLabel(bolsaDados[i-1].getImage()));
+            //System.out.println (bolsaDados[i-1].getId());
         }
-        for(int i=10; i<7; i++){
-            panelZonaActiva.add(bolsaDados[i]);
-        }
+        this.add(panelZonaInactiva,BorderLayout.EAST);
     }
 
     /**
@@ -205,6 +216,7 @@ public class GUI extends JFrame {
             if(eventAction.getSource() == tirar){
                 //llamar a la funcion revolver los dados
                 iniciarJuego();
+                tirar.setEnabled(false);
 
             }else if(eventAction.getSource() == ayudaImagen){
                 //llamar a la ventana ayuda
@@ -212,6 +224,8 @@ public class GUI extends JFrame {
                 ventanaAyuda.setVisible(true);
 
             }
+            revalidate();
+            repaint();
         }
 
         /**
