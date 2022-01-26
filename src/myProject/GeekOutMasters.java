@@ -20,21 +20,16 @@ public class GeekOutMasters extends JFrame{
     }
 
     public Dado[] rellenado() {
-        Dado [] nuevosDados = new Dado[10];
 
-        for(int i=0; i<10; i++){
-            nuevosDados[i] = new Dado(i+1, 6);
-            inicio[i] = nuevosDados[i];
-            inicio[i].getCara();
-        }
-        inicio = nuevosDados;
+        for(int i=0; i<10; i++)inicio[i] = new Dado(i+1);
+
         return inicio;
     }
 
     public Dado[] revolver() {
         rellenado();
 
-        for(int u=0;u<100;u++) {
+        for(int u=0;u<20;u++) {
             for(int i=0;i<9;i++) {
                 Random random = new Random();
                 int direction = random.nextInt(9)+1;
@@ -44,7 +39,16 @@ public class GeekOutMasters extends JFrame{
                 revuelto[direction] = dadoNew;
             }
         }
-        return revuelto;
+
+        return ordenarID(revuelto);
+    }
+
+    public Dado[] ordenarID( Dado[] otro) {
+        for(int i=0;i<10;i++){
+
+            otro[i].setId(i+1);
+
+        } return otro;
     }
 
     public Dado[] getRevuelto() { return revuelto; }

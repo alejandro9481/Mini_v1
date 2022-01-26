@@ -25,7 +25,7 @@ public class GUI extends JFrame {
     public static final String fondito = "src/resources/fondo.png";
 
     private JPanel panelPuntaje,panelZonaInactiva, panelZonaActiva,panelDadosUtilizados,panelAyuda;
-    private JLabel puntuacion, valorPuntuacion;
+    private JLabel puntuacion, valorPuntuacion, turno, valorTurno;
 
     private JButton tirar, ayudaImagen;
     private JTextArea mensajes;
@@ -34,7 +34,7 @@ public class GUI extends JFrame {
     private Icon icono;
 
     private GeekOutMasters control = new GeekOutMasters();
-    private Dado [] bolsaDados = control.revolver();
+    private Dado [] bolsaDados = control.rellenado();
 
     private Escucha escucha;
     private BufferedImage bufferImage ;
@@ -53,7 +53,7 @@ public class GUI extends JFrame {
 
             //Default JFrame configuration
             this.setTitle("The Title app");
-            this.setSize(1000,600);
+            this.setSize(1050,600);
             //this.pack();
             this.setResizable(true);
             this.setVisible(true);
@@ -88,13 +88,21 @@ public class GUI extends JFrame {
 
         //Zona del puntaje y de la marza
         panelPuntaje = new JPanel();
+
+            //Puntajes
+            turno = new JLabel("Turno:");
+            valorTurno = new JLabel("  "+"5"+"  ");// puntajes 1 3 6 10 15 21
+
+            panelPuntaje.add(turno);
+            panelPuntaje.add(valorTurno);
+
         panelPuntaje.setPreferredSize(new Dimension(300,120));
         //panelPuntaje.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         panelPuntaje.setBorder(BorderFactory.createTitledBorder("Tablero de Memoria"));
         panelPuntaje.add(new JLabel( new ImageIcon ("src/resources/puntajes/MarcadorPuntaje_0.png")));
 
             //Puntajes
-            puntuacion = new JLabel("  Puntuacion:  ");
+            puntuacion = new JLabel("   Puntuacion:");
             valorPuntuacion = new JLabel("     "+"50");// puntajes 1 3 6 10 15 21
 
             panelPuntaje.add(puntuacion);
@@ -174,13 +182,13 @@ public class GUI extends JFrame {
         //
         for(int i=0; i<7; i++){
             panelZonaActiva.add(new JLabel(bolsaDados[i].getImage()));
-            //System.out.println (bolsaDados[i].getId());
+            System.out.println (bolsaDados[i].getId());
         }
         this.add(panelZonaActiva,BorderLayout.CENTER);
 
-        for(int i=10; i>7; i--){
-            panelZonaInactiva.add(new JLabel(bolsaDados[i-1].getImage()));
-            //System.out.println (bolsaDados[i-1].getId());
+        for(int i=7; i<10; i++){
+            panelZonaInactiva.add(new JLabel(bolsaDados[i].getImage()));
+            System.out.println (bolsaDados[i].getId());
         }
         this.add(panelZonaInactiva,BorderLayout.EAST);
     }
