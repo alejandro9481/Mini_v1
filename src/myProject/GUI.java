@@ -37,6 +37,7 @@ public class GUI extends JFrame {
     private Dado [] bolsaDados = control.rellenado();
 
     private Escucha escucha;
+    private EscuchaMeeple escuchaMeeple;
     private BufferedImage bufferImage ;
     private JFrame miMismo = this;
     private Ayuda ventanaAyuda = new Ayuda(miMismo);
@@ -80,6 +81,7 @@ public class GUI extends JFrame {
 
         //crear el escucha
         escucha = new Escucha();
+        escuchaMeeple = new EscuchaMeeple();
 
         //Set up JFrame Container's Layout
         //Create Listener Object and Control Object
@@ -180,17 +182,22 @@ public class GUI extends JFrame {
 
         //this.remove(panelZonaActiva);
         //
-        for(int i=0; i<7; i++){
+
+        for(int i=0; i<=6; i++){
             panelZonaActiva.add(new JLabel(bolsaDados[i].getImage()));
-            System.out.println (bolsaDados[i].getId());
+            bolsaDados[i].addMouseListener(escuchaMeeple);
+            System.out.println (bolsaDados[i].getCara());
         }
         this.add(panelZonaActiva,BorderLayout.CENTER);
 
-        for(int i=7; i<10; i++){
+        for(int i=7; i<=9; i++){
             panelZonaInactiva.add(new JLabel(bolsaDados[i].getImage()));
+            bolsaDados[i].addMouseListener(escuchaMeeple);
             System.out.println (bolsaDados[i].getId());
         }
         this.add(panelZonaInactiva,BorderLayout.EAST);
+
+
     }
 
     /**
@@ -241,88 +248,100 @@ public class GUI extends JFrame {
          *
          * @param eventMouse the event mouse
          */
+
+    }
+
+
+
+
+    private class EscuchaMeeple extends MouseAdapter{
+        /**
+         * Mouse clicked.
+         *
+         * @param eventMouse the event mouse
+         */
+        @Override
+        public void mouseClicked(MouseEvent eventMouse) {
+            // TODO Auto-generated method stub
+            //Dado dadoSeleccionado = (Dado) eventMouse.getSource();
+
+
+                //System.out.println(dadoSeleccionado.getCara());
+                JOptionPane.showMessageDialog(null,
+                        "GANASTE \n"
+                                +"Obtuviste " +" puntos en menos de " +" rondas",
+                        "PopUp Dialog",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+            revalidate();
+            repaint();
+
+        }
+
+    }
+
+    private class EscuchaDragon extends MouseAdapter{
+        /**
+         * Mouse clicked.
+         *
+         * @param eventMouse the event mouse
+         */
         @Override
         public void mouseClicked(MouseEvent eventMouse) {
             // TODO Auto-generated method stub
             Dado dadoSeleccionado = (Dado) eventMouse.getSource();
         }
+    }
 
-        private class EscuchaMeeple extends MouseAdapter{
-            /**
-             * Mouse clicked.
-             *
-             * @param eventMouse the event mouse
-             */
-            @Override
-            public void mouseClicked(MouseEvent eventMouse) {
-                // TODO Auto-generated method stub
-                Dado dadoSeleccionado = (Dado) eventMouse.getSource();
-            }
+    private class EscuchaCorazon extends MouseAdapter{
+        /**
+         * Mouse clicked.
+         *
+         * @param eventMouse the event mouse
+         */
+        @Override
+        public void mouseClicked(MouseEvent eventMouse) {
+            // TODO Auto-generated method stub
+            Dado dadoSeleccionado = (Dado) eventMouse.getSource();
         }
+    }
 
-        private class EscuchaDragon extends MouseAdapter{
-            /**
-             * Mouse clicked.
-             *
-             * @param eventMouse the event mouse
-             */
-            @Override
-            public void mouseClicked(MouseEvent eventMouse) {
-                // TODO Auto-generated method stub
-                Dado dadoSeleccionado = (Dado) eventMouse.getSource();
-            }
+    private class EscuchaCohete extends MouseAdapter{
+        /**
+         * Mouse clicked.
+         *
+         * @param eventMouse the event mouse
+         */
+        @Override
+        public void mouseClicked(MouseEvent eventMouse) {
+            // TODO Auto-generated method stub
+            Dado dadoSeleccionado = (Dado) eventMouse.getSource();
         }
+    }
 
-        private class EscuchaCorazon extends MouseAdapter{
-            /**
-             * Mouse clicked.
-             *
-             * @param eventMouse the event mouse
-             */
-            @Override
-            public void mouseClicked(MouseEvent eventMouse) {
-                // TODO Auto-generated method stub
-                Dado dadoSeleccionado = (Dado) eventMouse.getSource();
-            }
+    private class EscuchaSuperheroe extends MouseAdapter{
+        /**
+         * Mouse clicked.
+         *
+         * @param eventMouse the event mouse
+         */
+        @Override
+        public void mouseClicked(MouseEvent eventMouse) {
+            // TODO Auto-generated method stub
+            Dado dadoSeleccionado = (Dado) eventMouse.getSource();
         }
+    }
 
-        private class EscuchaCohete extends MouseAdapter{
-            /**
-             * Mouse clicked.
-             *
-             * @param eventMouse the event mouse
-             */
-            @Override
-            public void mouseClicked(MouseEvent eventMouse) {
-                // TODO Auto-generated method stub
-                Dado dadoSeleccionado = (Dado) eventMouse.getSource();
-            }
-        }
-
-        private class EscuchaSuperheroe extends MouseAdapter{
-            /**
-             * Mouse clicked.
-             *
-             * @param eventMouse the event mouse
-             */
-            @Override
-            public void mouseClicked(MouseEvent eventMouse) {
-                // TODO Auto-generated method stub
-                Dado dadoSeleccionado = (Dado) eventMouse.getSource();
-            }
-        }
-
-        private class Escucha42 extends MouseAdapter{
-            /**
-             * Mouse clicked.
-             *
-             * @param eventMouse the event mouse
-             */
-            @Override
-            public void mouseClicked(MouseEvent eventMouse) {
-                // TODO Auto-generated method stub
-                Dado dadoSeleccionado = (Dado) eventMouse.getSource();
-            }
+    private class Escucha42 extends MouseAdapter{
+        /**
+         * Mouse clicked.
+         *
+         * @param eventMouse the event mouse
+         */
+        @Override
+        public void mouseClicked(MouseEvent eventMouse) {
+            // TODO Auto-generated method stub
+            Dado dadoSeleccionado = (Dado) eventMouse.getSource();
         }
     }
 }
