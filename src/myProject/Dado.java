@@ -11,8 +11,7 @@ import java.util.Random;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import javax.swing.*;
 
 /**
  * Class Dado generate a Random value between 1 and 6
@@ -21,7 +20,7 @@ import javax.swing.JButton;
  * @version v.1.0.0 date 09/12/2021
  */
 
-public class Dado extends JButton{
+public class Dado extends JLabel {
     /**
      *	The attributes
      */
@@ -39,7 +38,9 @@ public class Dado extends JButton{
         for(int u=0;u<50;u++) {
             getCara();
         }
-        getImage();
+
+        this.setIcon(getImage());
+
     }
 
     /**

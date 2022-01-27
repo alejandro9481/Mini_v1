@@ -184,9 +184,9 @@ public class GUI extends JFrame {
         //
 
         for(int i=0; i<=6; i++){
-            panelZonaActiva.add(new JLabel(bolsaDados[i].getImage()));
+            panelZonaActiva.add(bolsaDados[i]);
             bolsaDados[i].addMouseListener(escuchaMeeple);
-            System.out.println (bolsaDados[i].getCara());
+            System.out.println (bolsaDados[i].getId());
         }
         this.add(panelZonaActiva,BorderLayout.CENTER);
 
@@ -263,10 +263,10 @@ public class GUI extends JFrame {
         @Override
         public void mouseClicked(MouseEvent eventMouse) {
             // TODO Auto-generated method stub
-            //Dado dadoSeleccionado = (Dado) eventMouse.getSource();
+            Dado dadoSeleccionado = (Dado) eventMouse.getSource();
 
 
-                //System.out.println(dadoSeleccionado.getCara());
+                System.out.println(dadoSeleccionado.getCara());
                 JOptionPane.showMessageDialog(null,
                         "GANASTE \n"
                                 +"Obtuviste " +" puntos en menos de " +" rondas",
