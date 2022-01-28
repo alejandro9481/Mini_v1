@@ -11,7 +11,7 @@ public class GeekOutMasters extends JFrame{
     private Dado[] inicio;
     private JLabel imagenPuntaje;
     private ImageIcon imagenMarcador;
-    private int contPuntaje =0,contPuntaje2 =0, contTurno=0,contMarcadorPuntaje=0, contGuardadoPuntuacion=0;
+    private int contPuntaje =0,contPuntaje2 =0, contTurno=0,contMarcadorPuntaje=0, contGuardadoPuntuacion=0,recuerdoCara=0;
     private boolean tirar=true;
 
     public GeekOutMasters(){
@@ -63,4 +63,8 @@ public class GeekOutMasters extends JFrame{
     public int getContMarcadorPuntaje() { return contMarcadorPuntaje; }
 
     public void setContMarcadorPuntaje(int contMarcadorPuntaje) { this.contMarcadorPuntaje = contMarcadorPuntaje; }
+
+    public int getRecuerdoCara() { return recuerdoCara; }
+
+    public void setRecuerdoCara(int recuerdoCara) { this.recuerdoCara = recuerdoCara; }
 }

@@ -37,12 +37,9 @@ public class GUI extends JFrame {
 
     private Escucha escucha;
     private EscuchaMeeple EscuchaMeeple;
-    private ActivoEscuchaMeeple ActivoEscuchaMeeple;
     private EscuchaDragon EscuchaDragon;
     private EscuchaCorazon EscuchaCorazon;
-    private ActivoEscuchaCorazon ActivoEscuchaCorazon;
     private EscuchaCohete EscuchaCohete;
-    private ActivoEscuchaCohete ActivoEscuchaCohete;
     private EscuchaSuperheroe EscuchaSuperheroe;
     private Escucha42 Escucha42;
 
@@ -61,7 +58,7 @@ public class GUI extends JFrame {
 
             //Default JFrame configuration
             this.setTitle("The Title app");
-            this.setSize(1050,600);
+            this.setSize(1250,600);
             //this.pack();
             this.setResizable(true);
             this.setVisible(true);
@@ -89,12 +86,9 @@ public class GUI extends JFrame {
         //crear el escucha
         escucha = new Escucha();
         EscuchaMeeple = new EscuchaMeeple();
-        ActivoEscuchaMeeple = new ActivoEscuchaMeeple();
         EscuchaDragon = new EscuchaDragon();
         EscuchaCorazon = new EscuchaCorazon();
-        ActivoEscuchaCorazon = new ActivoEscuchaCorazon();
         EscuchaCohete = new EscuchaCohete();
-        ActivoEscuchaCohete = new ActivoEscuchaCohete();
         EscuchaSuperheroe = new EscuchaSuperheroe();
         Escucha42 = new Escucha42();
 
@@ -108,7 +102,7 @@ public class GUI extends JFrame {
 
             //Puntajes
             turno = new JLabel("Turno:");
-            valorTurno = new JLabel(String.valueOf("  "+control.getContTurno()+"  "));// turno 1 2 3 4 5
+            valorTurno = new JLabel("         "+control.getContTurno()+"                ");// turno 1 2 3 4 5
 
             panelPuntaje.add(turno);
             panelPuntaje.add(valorTurno);
@@ -120,8 +114,8 @@ public class GUI extends JFrame {
         panelPuntaje.add(marcadorPuntaje);//añado la imagen
 
             //Puntajes
-            puntuacion = new JLabel("   Puntuacion:");
-            valorPuntuacion = new JLabel(String.valueOf("     "+control.getContPuntaje()));// puntajes 1 3 6 10 15 21
+            puntuacion = new JLabel("         Puntuacion:");
+            valorPuntuacion = new JLabel("         "+control.getContPuntaje());// puntajes 1 3 6 10 15 21
 
             panelPuntaje.add(puntuacion);
             panelPuntaje.add(valorPuntuacion);
@@ -148,7 +142,7 @@ public class GUI extends JFrame {
 
         //Zona de los dados inactivos
         panelZonaInactiva = new JPanel();
-        panelZonaInactiva.setPreferredSize(new Dimension(200,300));
+        panelZonaInactiva.setPreferredSize(new Dimension(400,300));
         //panelZonaInactiva.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         panelZonaInactiva.setBorder(BorderFactory.createTitledBorder("Zona inactiva"));
 
@@ -182,33 +176,56 @@ public class GUI extends JFrame {
         this.add(panelAyuda,BorderLayout.SOUTH);
     }
 
-    private void agregaEscuchas(int i){
+    private void agregaEscuchas(Dado otro){
         //con este switch se agregaran los escuchas según el dado
-        switch(bolsaDados[i].getCaraOriginal())
+        switch(otro.getCaraOriginal())
         {
             // MEEPLE
-            case 1 : bolsaDados[i].addMouseListener(EscuchaMeeple); break;
+            case 1 : otro.addMouseListener(EscuchaMeeple); break;
 
             // DRAGON
-            case 2 : bolsaDados[i].addMouseListener(EscuchaDragon); break;
+            case 2 : otro.addMouseListener(EscuchaDragon); break;
 
             // CORAZON
-            case 3 : bolsaDados[i].addMouseListener(EscuchaCorazon); break;
+            case 3 : otro.addMouseListener(EscuchaCorazon); break;
 
             // COHETE
-            case 4 : bolsaDados[i].addMouseListener(EscuchaCohete); break;
+            case 4 : otro.addMouseListener(EscuchaCohete); break;
 
             // SUPERHEROE
-            case 5 : bolsaDados[i].addMouseListener(EscuchaSuperheroe); break;
+            case 5 : otro.addMouseListener(EscuchaSuperheroe); break;
 
             // 42
-            case 6 : bolsaDados[i].addMouseListener(Escucha42); break;
+            case 6 : otro.addMouseListener(Escucha42); break;
 
             default :
                 // Declaraciones
         }
     }
+    private void removerEscuchas(Dado dadoSeleccionado){
+        switch(dadoSeleccionado.getCaraOriginal())
+        {
+            // MEEPLE
+            case 1 : dadoSeleccionado.removeMouseListener(EscuchaMeeple);break;
 
+            // DRAGON
+            case 2 : dadoSeleccionado.removeMouseListener(EscuchaDragon);break;
+
+            // CORAZON
+            case 3 : dadoSeleccionado.removeMouseListener(EscuchaCorazon);break;
+
+            // COHETE
+            case 4 :dadoSeleccionado.removeMouseListener(EscuchaCohete);break;
+
+            // SUPERHEROE
+            case 5 : dadoSeleccionado.removeMouseListener(EscuchaSuperheroe);break;
+
+            // 42
+            case 6 : dadoSeleccionado.removeMouseListener(Escucha42);break;
+
+            default :
+        }
+    }
     private void revolverJuego() {
         if(control.getTirar()) {
             bolsaDados = control.rellenado();
@@ -219,16 +236,21 @@ public class GUI extends JFrame {
                 if (i < 7){
 
                     bolsaDados[i].getCara();
-                    agregaEscuchas(i);
+                    agregaEscuchas(bolsaDados[i]);
+                    bolsaDados[i].setDadosUtilizados(false);
                     bolsaDados[i].setZonaActiva(true);
+                    bolsaDados[i].setZonaInactiva(false);
+
                     panelZonaActiva.add(bolsaDados[i]);
                     //System.out.println ("");
                 }
                 //System.out.println (bolsaDados[i].getId());
                 else{
                     bolsaDados[i].getCara();
-                    agregaEscuchas(i);
+                    agregaEscuchas(bolsaDados[i]);
                     //zonaActiva, zonaInactiva, dadosUtilizados
+                    bolsaDados[i].setDadosUtilizados(false);
+                    bolsaDados[i].setZonaActiva(false);
                     bolsaDados[i].setZonaInactiva(true);
                     panelZonaInactiva.add(bolsaDados[i]);
                 //System.out.println (bolsaDados[i].getId());
@@ -305,153 +327,41 @@ public class GUI extends JFrame {
             Dado dadoSeleccionado = (Dado) eventMouse.getSource();
 
             //zonaActiva, zonaInactiva, dadosUtilizados
-            if(dadoSeleccionado.isDadosUtilizados()){
-                //mensajes.append("Ha seleccionado un MEEPLE!! \n");
-                dadoSeleccionado.setDadosUtilizados(false);
+            if(dadoSeleccionado.getDadosUtilizados()){
+                System.out.println ("Prueba a Meeple");
+                dadoSeleccionado.setDadosUtilizados(true);
                 dadoSeleccionado.setZonaActiva(false);
-                dadoSeleccionado.setZonaInactiva(true);
-                panelZonaInactiva.add(dadoSeleccionado);
-
-               // panelZonaInactiva.add(dadoSeleccionado);
-            }else if (dadoSeleccionado.isZonaActiva()){
+                dadoSeleccionado.setZonaInactiva(false);
+            }else if (dadoSeleccionado.getZonaActiva()){
+                //System.out.println ("Prueba b Meeple");
                 mensajes.append("Ha seleccionado un MEEPLE!! \n");
                 //control.setTirar(false);
+                if(control.getRecuerdoCara() == 0){
+                    System.out.println ("Prueba b.a Meeple");
+                    dadoSeleccionado.setDadosUtilizados(true);
+                    dadoSeleccionado.setZonaActiva(false);
+                    dadoSeleccionado.setZonaInactiva(false);
 
-                dadoSeleccionado.setDadosUtilizados(true);
-                dadoSeleccionado.setZonaActiva(false);
-                dadoSeleccionado.setZonaInactiva(false);
+                    panelDadosUtilizados.add(dadoSeleccionado);
 
-                panelDadosUtilizados.add(dadoSeleccionado);
-                System.out.println(dadoSeleccionado.getCaraOriginal());
-                JOptionPane.showMessageDialog(null,
-                        "Meeple \n",
-                        "Meeple",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }else if (dadoSeleccionado.isZonaInactiva()){
+                    control.setRecuerdoCara(dadoSeleccionado.getCaraOriginal());
+                    JOptionPane.showMessageDialog(null, "Meeple \n", "Meeple", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    System.out.println ("Prueba b.b Meeple");
+                    removerEscuchas(dadoSeleccionado);
+                    dadoSeleccionado.getCara();
+                    agregaEscuchas(dadoSeleccionado);
+                    control.setRecuerdoCara(0);
+                }
+
+            }else if (dadoSeleccionado.getZonaInactiva()){
+                System.out.println ("Prueba c Meeple");
                 //mensajes.append("Ha seleccionado un MEEPLE!! \n");
-                dadoSeleccionado.setDadosUtilizados(false);
-                dadoSeleccionado.setZonaActiva(true);
-                dadoSeleccionado.setZonaInactiva(false);
-            }
-
-            for(int e=0; e<=6; e++){
-                bolsaDados[e].addMouseListener(ActivoEscuchaMeeple);
-                //System.out.println (bolsaDados[i].getId());
-            }
-            revalidate();
-            repaint();
-        }
-    }
-
-    private class ActivoEscuchaMeeple extends MouseAdapter{
-        /**
-         * Mouse clicked.
-         *
-         * @param eventMouse the event mouse
-         */
-        @Override
-        public void mouseClicked(MouseEvent eventMouse) {
-            // TODO Auto-generated method stub
-            Dado dadoSeleccionado = (Dado) eventMouse.getSource();
-            //System.out.println(dadoSeleccionado.getCaraOriginal());
-
-            System.out.println ("estoy en meeple");
-            //if (dadoSeleccionado.getCaraOriginal() == 4){
-            if(dadoSeleccionado.isDadosUtilizados()){
                 dadoSeleccionado.setDadosUtilizados(false);
                 dadoSeleccionado.setZonaActiva(false);
                 dadoSeleccionado.setZonaInactiva(true);
-                panelZonaInactiva.add(dadoSeleccionado);
-            }else if (dadoSeleccionado.isZonaActiva()){
-                //control.setTirar(false);
-                dadoSeleccionado.setDadosUtilizados(true);
-                System.out.println (dadoSeleccionado.getCaraOriginal());
-
-                switch(dadoSeleccionado.getCaraOriginal())
-                {
-                    // MEEPLE
-                    case 1 : dadoSeleccionado.removeMouseListener(EscuchaMeeple);
-                        dadoSeleccionado.removeMouseListener(ActivoEscuchaMeeple); break;
-
-                    // DRAGON
-                    case 2 : dadoSeleccionado.removeMouseListener(EscuchaDragon);
-                        //dadoSeleccionado.removeMouseListener(ActivoEscuchaDragon); break;
-
-                        // CORAZON
-                    case 3 : dadoSeleccionado.removeMouseListener(EscuchaCorazon);
-                        dadoSeleccionado.removeMouseListener(ActivoEscuchaCorazon);
-                        System.out.println ("saque switch corazon");
-
-                        break;
-
-                    // COHETE
-                    case 4 :dadoSeleccionado.removeMouseListener(EscuchaCohete);
-                        dadoSeleccionado.removeMouseListener(ActivoEscuchaCohete);break;
-
-
-                    // SUPERHEROE
-                    case 5 : dadoSeleccionado.removeMouseListener(EscuchaSuperheroe);
-                        //dadoSeleccionado.removeMouseListener(ActivoEscuchaMeeple);break;
-
-                        // 42
-                    case 6 : dadoSeleccionado.removeMouseListener(Escucha42);
-                        //dadoSeleccionado.removeMouseListener(ActivoEscuchaMeeple);break;
-
-                    default :
-                        // Declaraciones
-                }
-
-                dadoSeleccionado.getCara();
-                System.out.println (dadoSeleccionado.getCaraOriginal());
-
-                switch(dadoSeleccionado.getCaraOriginal())
-                {
-
-                    // MEEPLE
-                    case 1 : dadoSeleccionado.addMouseListener(EscuchaMeeple); break;
-
-                    // DRAGON
-                    case 2 : dadoSeleccionado.addMouseListener(EscuchaDragon); break;
-
-                    // CORAZON
-                    case 3 : dadoSeleccionado.addMouseListener(EscuchaCorazon);
-                        System.out.println ("entre switch corazon");
-                        break;
-
-                    // COHETE
-                    case 4 :dadoSeleccionado.addMouseListener(EscuchaCohete); break;
-
-
-                    // SUPERHEROE
-                    case 5 : dadoSeleccionado.addMouseListener(EscuchaSuperheroe); break;
-
-                    // 42
-                    case 6 : dadoSeleccionado.addMouseListener(Escucha42); break;
-
-                    default :
-                        // Declaraciones
-                }
-
-                //panelZonaActiva.add(dadoSeleccionado);
-
-                //System.out.println(dadoSeleccionado.getCaraOriginal());
-                JOptionPane.showMessageDialog(null,
-                        "Corazon activo \n",
-                        "Meeple",
-                        JOptionPane.INFORMATION_MESSAGE);
-
-
-            }else if (dadoSeleccionado.isZonaInactiva()){
-                dadoSeleccionado.setDadosUtilizados(false);
-                dadoSeleccionado.setZonaActiva(true);
-                dadoSeleccionado.setZonaInactiva(false);
             }
-            //}
 
-            for(int e=0; e<=6; e++){
-                bolsaDados[e].removeMouseListener(ActivoEscuchaMeeple);
-                //System.out.println (bolsaDados[i].getId());
-            }
             revalidate();
             repaint();
         }
@@ -468,11 +378,13 @@ public class GUI extends JFrame {
             // TODO Auto-generated method stub
             Dado dadoSeleccionado = (Dado) eventMouse.getSource();
 
-            if(dadoSeleccionado.isDadosUtilizados()){
+            if(dadoSeleccionado.getDadosUtilizados()){
+                System.out.println ("Prueba a Dragon");
                 dadoSeleccionado.setDadosUtilizados(true);
                 dadoSeleccionado.setZonaActiva(false);
                 dadoSeleccionado.setZonaInactiva(false);
-            }else if (dadoSeleccionado.isZonaActiva()){
+            }else if (dadoSeleccionado.getZonaActiva()){
+                System.out.println ("Prueba b Dragon");
                 mensajes.append("Ha seleccionado un DRAGON!! \n");
                 //control.setTirar(false);
                 control.setContPuntaje(0);
@@ -483,22 +395,22 @@ public class GUI extends JFrame {
 
                 control.setContMarcadorPuntaje(0);
                 marcadorPuntaje.setIcon(control.getImagenMarcador());
-                //valorPuntuacion.setText(String.valueOf("     "+control.getContPuntaje()));
+                //valorPuntuacion.setText("     "+control.getContPuntaje());
 
                 dadoSeleccionado.setDadosUtilizados(true);
                 panelDadosUtilizados.add(dadoSeleccionado);
-                System.out.println(dadoSeleccionado.getCaraOriginal());
+                //System.out.println(dadoSeleccionado.getCaraOriginal());
                 JOptionPane.showMessageDialog(null,
                         "Dragon \n",
                         "Dragon",
                         JOptionPane.INFORMATION_MESSAGE);
-            }else if (dadoSeleccionado.isZonaInactiva()){
+            }else if (dadoSeleccionado.getZonaInactiva()){
+                System.out.println ("Prueba c Dragon");
                 //mensajes.append("Ha seleccionado un DRAGON!! \n");
                 dadoSeleccionado.setDadosUtilizados(false);
-                dadoSeleccionado.setZonaActiva(true);
-                dadoSeleccionado.setZonaInactiva(false);
+                dadoSeleccionado.setZonaActiva(false);
+                dadoSeleccionado.setZonaInactiva(true);
             }
-
             revalidate();
             repaint();
         }
@@ -515,79 +427,50 @@ public class GUI extends JFrame {
             // TODO Auto-generated method stub
             Dado dadoSeleccionado = (Dado) eventMouse.getSource();
 
-            if(dadoSeleccionado.isDadosUtilizados()){
-                dadoSeleccionado.setDadosUtilizados(false);
+            if(dadoSeleccionado.getDadosUtilizados()){
+                System.out.println ("Prueba a Corazon");
+                dadoSeleccionado.setDadosUtilizados(true);
                 dadoSeleccionado.setZonaActiva(false);
-                dadoSeleccionado.setZonaInactiva(true);
-                panelZonaInactiva.add(dadoSeleccionado);
-            }else if (dadoSeleccionado.isZonaActiva()){
+                dadoSeleccionado.setZonaInactiva(false);
+                //panelZonaInactiva.add(dadoSeleccionado);
+            }else if (dadoSeleccionado.getZonaActiva()){
+                //System.out.println ("Prueba b Corazon");
                 mensajes.append("Ha seleccionado un CORAZON!! \n");
                 //control.setTirar(false);
-                dadoSeleccionado.setDadosUtilizados(true);
-                panelDadosUtilizados.add(dadoSeleccionado);
-                System.out.println(dadoSeleccionado.getCaraOriginal());
-                JOptionPane.showMessageDialog(null,
-                        "Corazon \n",
-                        "Corazon",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }else if (dadoSeleccionado.isZonaInactiva()){
+
+                if(control.getRecuerdoCara() == 0){
+                    System.out.println ("Prueba b.a Corazon");
+                    dadoSeleccionado.setDadosUtilizados(true);
+                    dadoSeleccionado.setZonaActiva(false);
+                    dadoSeleccionado.setZonaInactiva(false);
+
+                    panelDadosUtilizados.add(dadoSeleccionado);
+
+                    control.setRecuerdoCara(dadoSeleccionado.getCaraOriginal());
+                    JOptionPane.showMessageDialog(null, "Corazon \n", "Corazon", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+
+                    //control.setTirar(false);
+
+                    if(dadoSeleccionado.getZonaInactiva()){
+                        System.out.println ("Prueba b.b.a Corazon");
+                        dadoSeleccionado.getCara();
+                        panelZonaActiva.add(dadoSeleccionado);
+                        control.setRecuerdoCara(0);
+                    }else{
+                        JOptionPane.showMessageDialog(null,"Selecciona un dado de Zona Inactiva",
+                                "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+
+            }else if (dadoSeleccionado.getZonaInactiva()){
+                System.out.println ("Prueba c Corazon");
                 //mensajes.append("Ha seleccionado un CORAZON!! \n");
-                dadoSeleccionado.setDadosUtilizados(false);
-                dadoSeleccionado.setZonaActiva(true);
-                dadoSeleccionado.setZonaInactiva(false);
-            }
-
-            for(int e=7; e<=9; e++){
-                bolsaDados[e].addMouseListener(ActivoEscuchaCorazon);
-                //System.out.println (bolsaDados[i].getId());
-            }
-            //dadoSeleccionado.removeMouseListener(ActivoEscuchaCorazon);
-            revalidate();
-            repaint();
-        }
-    }
-
-    private class ActivoEscuchaCorazon extends MouseAdapter{
-        /**
-         * Mouse clicked.
-         *
-         * @param eventMouse the event mouse
-         */
-        @Override
-        public void mouseClicked(MouseEvent eventMouse) {
-            // TODO Auto-generated method stub
-            Dado dadoSeleccionado = (Dado) eventMouse.getSource();
-            System.out.println ("estoy en corazon");
-            //if (dadoSeleccionado.getCaraOriginal() == 4){
-            if(dadoSeleccionado.isDadosUtilizados()){
                 dadoSeleccionado.setDadosUtilizados(false);
                 dadoSeleccionado.setZonaActiva(false);
                 dadoSeleccionado.setZonaInactiva(true);
-                panelZonaInactiva.add(dadoSeleccionado);
-            }else if (dadoSeleccionado.isZonaInactiva()){
-                //control.setTirar(false);
-                dadoSeleccionado.setDadosUtilizados(true);
-                dadoSeleccionado.getCara();
-                panelZonaActiva.add(dadoSeleccionado);
-
-                System.out.println(dadoSeleccionado.getCaraOriginal());
-                JOptionPane.showMessageDialog(null,
-                        "Corazon activo \n",
-                        "Cohete",
-                        JOptionPane.INFORMATION_MESSAGE);
-
-
-            }else if (dadoSeleccionado.isZonaInactiva()){
-                dadoSeleccionado.setDadosUtilizados(false);
-                dadoSeleccionado.setZonaActiva(true);
-                dadoSeleccionado.setZonaInactiva(false);
             }
-            //}
-
-            for(int e=7; e<=9; e++){
-                bolsaDados[e].removeMouseListener(ActivoEscuchaCorazon);
-                //System.out.println (bolsaDados[i].getId());
-            }
+            //dadoSeleccionado.removeMouseListener(ActivoEscuchaCorazon);
             revalidate();
             repaint();
         }
@@ -604,81 +487,48 @@ public class GUI extends JFrame {
             // TODO Auto-generated method stub
             Dado dadoSeleccionado = (Dado) eventMouse.getSource();
 
-            if(dadoSeleccionado.isDadosUtilizados()){
-                dadoSeleccionado.setDadosUtilizados(false);
+            if(dadoSeleccionado.getDadosUtilizados()){
+                System.out.println ("Prueba a Cohete");
+                dadoSeleccionado.setDadosUtilizados(true);
                 dadoSeleccionado.setZonaActiva(false);
-                dadoSeleccionado.setZonaInactiva(true);
-                panelZonaInactiva.add(dadoSeleccionado);
-            }else if (dadoSeleccionado.isZonaActiva()){
+                dadoSeleccionado.setZonaInactiva(false);
+                //panelZonaInactiva.add(dadoSeleccionado);
+            }else if (dadoSeleccionado.getZonaActiva()){
+                System.out.println ("Prueba b Cohete");
                 mensajes.append("Ha seleccionado un COHETE!! \n");
                 //control.setTirar(false);
-                dadoSeleccionado.setDadosUtilizados(true);
-                panelDadosUtilizados.add(dadoSeleccionado);
-                System.out.println(dadoSeleccionado.getCaraOriginal());
-                JOptionPane.showMessageDialog(null,
-                        "Cohete \n",
-                        "Cohete",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }else if (dadoSeleccionado.isZonaInactiva()){
+
+                if(control.getRecuerdoCara() == 0){
+                    System.out.println ("Prueba b.a Cohete");
+                    dadoSeleccionado.setDadosUtilizados(true);
+                    dadoSeleccionado.setZonaActiva(false);
+                    dadoSeleccionado.setZonaInactiva(false);
+
+                    panelDadosUtilizados.add(dadoSeleccionado);
+
+                    control.setRecuerdoCara(dadoSeleccionado.getCaraOriginal());
+                    JOptionPane.showMessageDialog(null, "Cohete \n", "Cohete", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    System.out.println ("Prueba b.b Cohete");
+                    if(dadoSeleccionado.getZonaActiva()){
+                        dadoSeleccionado.setDadosUtilizados(false);
+                        dadoSeleccionado.setZonaActiva(false);
+                        dadoSeleccionado.setZonaInactiva(true);
+                        panelZonaInactiva.add(dadoSeleccionado);
+                        control.setRecuerdoCara(0);
+                    }else{
+                        JOptionPane.showMessageDialog(null,"Selecciona un dado de Zona Activa",
+                                "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            }else if (dadoSeleccionado.getZonaInactiva()){
+                System.out.println ("Prueba c Cohete");
                 //mensajes.append("Ha seleccionado un COHETE!! \n");
                 dadoSeleccionado.setDadosUtilizados(false);
-                dadoSeleccionado.setZonaActiva(true);
-                dadoSeleccionado.setZonaInactiva(false);
-            }
-
-            for(int e=0; e<=6; e++){
-                bolsaDados[e].addMouseListener(ActivoEscuchaCohete);
-                //System.out.println (bolsaDados[i].getId());
-            }
-            dadoSeleccionado.removeMouseListener(ActivoEscuchaCohete);
-
-            revalidate();
-            repaint();
-        }
-    }
-
-    private class ActivoEscuchaCohete extends MouseAdapter{
-        /**
-         * Mouse clicked.
-         *
-         * @param eventMouse the event mouse
-         */
-        @Override
-        public void mouseClicked(MouseEvent eventMouse) {
-            // TODO Auto-generated method stub
-            Dado dadoSeleccionado = (Dado) eventMouse.getSource();
-            System.out.println ("estoy en cohete");
-            //if (dadoSeleccionado.getCaraOriginal() == 4){
-            if(dadoSeleccionado.isDadosUtilizados()){
-                dadoSeleccionado.setDadosUtilizados(false);
                 dadoSeleccionado.setZonaActiva(false);
                 dadoSeleccionado.setZonaInactiva(true);
-                panelZonaInactiva.add(dadoSeleccionado);
-            }else if (dadoSeleccionado.isZonaActiva()){
-                //control.setTirar(false);
-                dadoSeleccionado.setDadosUtilizados(false);
-                dadoSeleccionado.setZonaActiva(false);
-                dadoSeleccionado.setZonaInactiva(true);
-                panelZonaInactiva.add(dadoSeleccionado);
-
-                System.out.println(dadoSeleccionado.getCaraOriginal());
-                JOptionPane.showMessageDialog(null,
-                        "Cohete \n",
-                        "Cohete",
-                        JOptionPane.INFORMATION_MESSAGE);
-
-
-            }else if (dadoSeleccionado.isZonaInactiva()){
-                dadoSeleccionado.setDadosUtilizados(false);
-                dadoSeleccionado.setZonaActiva(true);
-                dadoSeleccionado.setZonaInactiva(false);
             }
-            //}
 
-            for(int e=0; e<=6; e++){
-                bolsaDados[e].removeMouseListener(ActivoEscuchaCohete);
-                //System.out.println (bolsaDados[i].getId());
-            }
             revalidate();
             repaint();
         }
@@ -695,25 +545,28 @@ public class GUI extends JFrame {
             // TODO Auto-generated method stub
             Dado dadoSeleccionado = (Dado) eventMouse.getSource();
 
-            if(dadoSeleccionado.isDadosUtilizados()){
+            if(dadoSeleccionado.getDadosUtilizados()){
+                System.out.println ("Prueba a Superheroe");
                 dadoSeleccionado.setDadosUtilizados(true);
                 dadoSeleccionado.setZonaActiva(false);
                 dadoSeleccionado.setZonaInactiva(false);
-            }else if (dadoSeleccionado.isZonaActiva()){
+            }else if (dadoSeleccionado.getZonaActiva()){
+                System.out.println ("Prueba b Superheroe");
                 mensajes.append("Ha seleccionado un SUPERHEROE!! \n");
                 //control.setTirar(false);
                 dadoSeleccionado.setDadosUtilizados(true);
                 panelDadosUtilizados.add(dadoSeleccionado);
-                System.out.println(dadoSeleccionado.getCaraOriginal());
+                //System.out.println(dadoSeleccionado.getCaraOriginal());
                 JOptionPane.showMessageDialog(null,
                         "superheroe \n",
                         "superheroe",
                         JOptionPane.INFORMATION_MESSAGE);
-            }else if (dadoSeleccionado.isZonaInactiva()){
+            }else if (dadoSeleccionado.getZonaInactiva()){
+                System.out.println ("Prueba c Superheroe");
                 //mensajes.append("Ha seleccionado un SUPERHEROE!! \n");
                 dadoSeleccionado.setDadosUtilizados(false);
-                dadoSeleccionado.setZonaActiva(true);
-                dadoSeleccionado.setZonaInactiva(false);
+                dadoSeleccionado.setZonaActiva(false);
+                dadoSeleccionado.setZonaInactiva(true);
             }
 
             revalidate();
@@ -732,11 +585,13 @@ public class GUI extends JFrame {
             // TODO Auto-generated method stub
             Dado dadoSeleccionado = (Dado) eventMouse.getSource();
 
-            if(dadoSeleccionado.isDadosUtilizados()){
+            if(dadoSeleccionado.getDadosUtilizados()){
+                System.out.println ("Prueba a 42");
                 dadoSeleccionado.setDadosUtilizados(true);
                 dadoSeleccionado.setZonaActiva(false);
                 dadoSeleccionado.setZonaInactiva(false);
-            }else if (dadoSeleccionado.isZonaActiva()){
+            }else if (dadoSeleccionado.getZonaActiva()){
+                System.out.println ("Prueba b 42");
                 mensajes.append("Ha seleccionado un 42!! \n");
                 //control.setTirar(false);
                 dadoSeleccionado.getNada();
@@ -745,7 +600,7 @@ public class GUI extends JFrame {
                 control.setContMarcadorPuntaje(control.getContMarcadorPuntaje()+1);
 
                 marcadorPuntaje.setIcon(control.getImagenMarcador());
-                valorPuntuacion.setText(String.valueOf("     "+control.getContPuntaje()));
+                valorPuntuacion.setText("     "+control.getContPuntaje());
                 System.out.println(control.getContMarcadorPuntaje());
 
                 dadoSeleccionado.setDadosUtilizados(true);
@@ -755,11 +610,12 @@ public class GUI extends JFrame {
                         "42 \n",
                         "42",
                         JOptionPane.INFORMATION_MESSAGE);
-            }else if (dadoSeleccionado.isZonaInactiva()){
+            }else if (dadoSeleccionado.getZonaInactiva()){
+                System.out.println ("Prueba c 42");
                 //mensajes.append("Ha seleccionado un 42!! \n");
                 dadoSeleccionado.setDadosUtilizados(false);
-                dadoSeleccionado.setZonaActiva(true);
-                dadoSeleccionado.setZonaInactiva(false);
+                dadoSeleccionado.setZonaActiva(false);
+                dadoSeleccionado.setZonaInactiva(true);
             }
 
             revalidate();

@@ -26,7 +26,7 @@ public class Dado extends JLabel {
      */
     private int cara, id;
     private ImageIcon image ;
-    private boolean zonaActiva, zonaInactiva, dadosUtilizados ;
+    private boolean zonaActiva, zonaInactiva, dadosUtilizados;
 
     /**
      * Method that generate
@@ -85,15 +85,15 @@ public class Dado extends JLabel {
 
     public int getId() { return id; }
 
-    public boolean isZonaActiva() { return zonaActiva; }
+    public boolean getZonaActiva() { return zonaActiva; }
 
     public void setZonaActiva(boolean zonaActiva) { this.zonaActiva = zonaActiva; }
 
-    public boolean isZonaInactiva() { return zonaInactiva; }
+    public boolean getZonaInactiva() { return zonaInactiva; }
 
     public void setZonaInactiva(boolean zonaInactiva) { this.zonaInactiva = zonaInactiva; }
 
-    public boolean isDadosUtilizados() { return dadosUtilizados; }
+    public boolean getDadosUtilizados() { return dadosUtilizados; }
 
     public void setDadosUtilizados(boolean dadosUtilizados) { this.dadosUtilizados = dadosUtilizados; }
 
