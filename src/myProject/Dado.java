@@ -59,23 +59,27 @@ public class Dado extends JLabel {
      * Method that generate an random value to cara
      * @return number between (1,6)
      */
-    public int getCaraOriginal() { return cara; }
+    public int getSuperHeroe() {
+        if(cara <=3){
+            return cara+3;
+        }else{
+            return cara-3;
+        }
+    }
+    public ImageIcon getNada() {
+        this.setIcon(new ImageIcon("src/resources/nada.png"));
+        return image = new ImageIcon("src/resources/nada.png");
+    }
 
-    /**
-     * Method that generate an image
-     * @return one of six images from the Dado
-     */
+
     public ImageIcon getImage() {
         return image = new ImageIcon("src/resources/caras/"+cara+".png");
     }
 
-    /**
-     * Method that generate an image
-     * @param image
-     */
     public void setImage(ImageIcon image) {
         this.image = image;
     }
+    public int getCaraOriginal() { return cara; }
 
     public void setId(int id) { this.id = id; }
 

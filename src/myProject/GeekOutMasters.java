@@ -10,11 +10,12 @@ public class GeekOutMasters extends JFrame{
             "src/resources/caras/10.png"};
     private Dado[] inicio;
     private JLabel imagenPuntaje;
-    private int contPuntaje =0,contPuntaje2 =0, contTurno=0;
+    private ImageIcon imagenMarcador;
+    private int contPuntaje =0,contPuntaje2 =0, contTurno=0,contMarcadorPuntaje=0, contGuardadoPuntuacion=0;
     private boolean tirar=true;
 
     public GeekOutMasters(){
-        this.imagenPuntaje = new JLabel( new ImageIcon ("src/resources/puntajes/MarcadorPuntaje_"+contPuntaje+".png"));
+        this.imagenPuntaje = new JLabel( new ImageIcon ("src/resources/puntajes/MarcadorPuntaje_"+contMarcadorPuntaje+".png"));
 
         this.inicio = new Dado[10];
     }
@@ -28,18 +29,20 @@ public class GeekOutMasters extends JFrame{
 
     public JLabel getImagenPuntaje() {
         return imagenPuntaje = new JLabel(
-                new ImageIcon ("src/resources/puntajes/MarcadorPuntaje_"+contPuntaje+".png"));
+                new ImageIcon ("src/resources/puntajes/MarcadorPuntaje_"+contMarcadorPuntaje+".png"));
     }
 
     public void setImagenPuntaje(JLabel imagenPuntaje) {
-        this.contPuntaje2 = contPuntaje2++;
-        this.contPuntaje = contPuntaje + contPuntaje2;
-        this.imagenPuntaje = new JLabel( new ImageIcon ("src/resources/puntajes/MarcadorPuntaje_"+contPuntaje+".png"));
+        this.imagenPuntaje = new JLabel( new ImageIcon ("src/resources/puntajes/MarcadorPuntaje_"+contMarcadorPuntaje+".png"));
     }
 
     public int getContPuntaje() { return contPuntaje; }
 
-    public void setContPuntaje(int contPuntaje) { this.contPuntaje = contPuntaje + contPuntaje2++; }
+    public void setContPuntaje(int contPuntaje) {
+        setContPuntaje2(contPuntaje2 + 1);
+        //System.out.println(contPuntaje);
+        this.contPuntaje = contPuntaje + contPuntaje2;
+    }
 
     public int getContTurno() {return contTurno;}
 
@@ -53,4 +56,11 @@ public class GeekOutMasters extends JFrame{
 
     public void setTirar(boolean tirar) { this.tirar = tirar;}
 
+    public ImageIcon getImagenMarcador() { return imagenMarcador = new ImageIcon ("src/resources/puntajes/MarcadorPuntaje_"+contMarcadorPuntaje+".png"); }
+
+    public void setImagenMarcador(ImageIcon imagenMarcador) { this.imagenMarcador = imagenMarcador; }
+
+    public int getContMarcadorPuntaje() { return contMarcadorPuntaje; }
+
+    public void setContMarcadorPuntaje(int contMarcadorPuntaje) { this.contMarcadorPuntaje = contMarcadorPuntaje; }
 }
