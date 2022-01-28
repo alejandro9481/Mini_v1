@@ -8,14 +8,14 @@ public class GeekOutMasters extends JFrame{
             "src/resources/caras/4.png", "src/resources/caras/5.png", "src/resources/caras/6.png",
             "src/resources/caras/7.png", "src/resources/caras/8.png", "src/resources/caras/9.png",
             "src/resources/caras/10.png"};
-    private Dado[] inicio, revuelto;
-
+    private Dado[] inicio;
+    private JLabel imagenPuntaje;
+    private int contPuntaje =0,contPuntaje2 =0, contTurno=0;
+    private boolean tirar=true;
 
     public GeekOutMasters(){
-        revuelto = new Dado[10];
-        inicio = new Dado[10];
+        this.imagenPuntaje = new JLabel( new ImageIcon ("src/resources/puntajes/MarcadorPuntaje_"+contPuntaje+".png"));
 
-        this.revuelto = new Dado[10];
         this.inicio = new Dado[10];
     }
 
@@ -26,32 +26,31 @@ public class GeekOutMasters extends JFrame{
         return inicio;
     }
 
-    public Dado[] revolver() {
-        rellenado();
-
-        for(int u=0;u<20;u++) {
-            for(int i=0;i<9;i++) {
-                Random random = new Random();
-                int direction = random.nextInt(9)+1;
-
-                Dado dadoNew = inicio[i];
-                revuelto[i] = inicio[direction];
-                revuelto[direction] = dadoNew;
-            }
-        }
-
-        return ordenarID(revuelto);
+    public JLabel getImagenPuntaje() {
+        return imagenPuntaje = new JLabel(
+                new ImageIcon ("src/resources/puntajes/MarcadorPuntaje_"+contPuntaje+".png"));
     }
 
-    public Dado[] ordenarID( Dado[] otro) {
-        for(int i=0;i<10;i++){
-
-            otro[i].setId(i+1);
-
-        } return otro;
+    public void setImagenPuntaje(JLabel imagenPuntaje) {
+        this.contPuntaje2 = contPuntaje2++;
+        this.contPuntaje = contPuntaje + contPuntaje2;
+        this.imagenPuntaje = new JLabel( new ImageIcon ("src/resources/puntajes/MarcadorPuntaje_"+contPuntaje+".png"));
     }
 
-    public Dado[] getRevuelto() { return revuelto; }
+    public int getContPuntaje() { return contPuntaje; }
 
-    public void setRevuelto(Dado[] revuelto) { this.revuelto = revuelto; }
+    public void setContPuntaje(int contPuntaje) { this.contPuntaje = contPuntaje + contPuntaje2++; }
+
+    public int getContTurno() {return contTurno;}
+
+    public void setContTurno(int contTurno) {this.contTurno = contTurno;}
+
+    public int getContPuntaje2() { return contPuntaje2; }
+
+    public void setContPuntaje2(int contPuntaje2) { this.contPuntaje2 = contPuntaje2; }
+
+    public boolean getTirar() { return tirar; }
+
+    public void setTirar(boolean tirar) { this.tirar = tirar;}
+
 }

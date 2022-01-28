@@ -26,7 +26,7 @@ public class Dado extends JLabel {
      */
     private int cara, id;
     private ImageIcon image ;
-    private boolean zonaActiva, zonaInactiva, dadosUtilizados;
+    private boolean zonaActiva, zonaInactiva, dadosUtilizados ;
 
     /**
      * Method that generate
@@ -49,9 +49,17 @@ public class Dado extends JLabel {
      */
     public int getCara() {
         Random aleatorio = new Random();
-        cara = aleatorio.nextInt(6) + 1;
+        this.cara = aleatorio.nextInt(6) + 1;
+        this.image = new ImageIcon("src/resources/caras/"+cara+".png");
+        this.setIcon(getImage());
         return cara;
     }
+
+    /**
+     * Method that generate an random value to cara
+     * @return number between (1,6)
+     */
+    public int getCaraOriginal() { return cara; }
 
     /**
      * Method that generate an image
@@ -84,4 +92,5 @@ public class Dado extends JLabel {
     public boolean isDadosUtilizados() { return dadosUtilizados; }
 
     public void setDadosUtilizados(boolean dadosUtilizados) { this.dadosUtilizados = dadosUtilizados; }
+
 }
