@@ -162,12 +162,13 @@ public class GUI extends JFrame {
 
     private void revolverJuego() {
         if(control.getTirar()){
+            control.setRecuerdoCara(0);
             bolsaDados = control.rellenado();
             panelZonaActiva.removeAll();
             panelZonaInactiva.removeAll();
             for(int i=0; i<=9; i++){
                 if (i < 7){
-
+                    removerEscuchas(bolsaDados[i]);
                     bolsaDados[i].getCara();
                     agregaEscuchas(bolsaDados[i]);
                     bolsaDados[i].setDadosUtilizados(false);
@@ -176,9 +177,10 @@ public class GUI extends JFrame {
 
                     panelZonaActiva.add(bolsaDados[i]);
                 }else{
+                    removerEscuchas(bolsaDados[i]);
                     bolsaDados[i].getCara();
                     agregaEscuchas(bolsaDados[i]);
-                    //zonaActiva, zonaInactiva, dadosUtilizados
+
                     bolsaDados[i].setDadosUtilizados(false);
                     bolsaDados[i].setZonaActiva(false);
                     bolsaDados[i].setZonaInactiva(true);
@@ -203,8 +205,16 @@ public class GUI extends JFrame {
         if (xxx == 0) {
             //addicion de turnos
             control.setContTurno(control.getContTurno() + 1);
+
             valorTurno.setText("         "+control.getContTurno()+"                ");
             panelPuntaje.repaint();
+
+            if(control.getContTurno() >= 5){
+                tirar.setEnabled(false);
+                JOptionPane.showMessageDialog(null,
+                        "Perdiste :(\n", ":(", JOptionPane.INFORMATION_MESSAGE);
+                System.exit(0);
+            }
 
             //remover paneles
             reinicioJuego(panelDadosUtilizados);
@@ -251,8 +261,8 @@ public class GUI extends JFrame {
             //responde a los eventos de botones salir, reinicio, periodo e inicio
 
             if(eventAction.getSource() == tirar){
-                    estaVacio(panelZonaActiva);
 
+                    estaVacio(panelZonaActiva);
                     //llama a la funcion para revolver los dados
                     revolverJuego();
                     mensajes.append("Ha realizado un tiro!! \n");
@@ -262,14 +272,6 @@ public class GUI extends JFrame {
                 miMismo.setEnabled(false);
                 ventanaAyuda.setVisible(true);
                 mensajes.append("Ha solicitado ayuda!! \n");
-            }else if(control.getContGuardadoPuntuacion() <= 50){
-                tirar.setEnabled(false);
-                JOptionPane.showMessageDialog(null,
-                        "Ganaste!! :D\n", ":D", JOptionPane.INFORMATION_MESSAGE);
-            }else if(control.getContTurno() == 5){
-                tirar.setEnabled(false);
-                JOptionPane.showMessageDialog(null,
-                        "Perdiste!! :(\n", ":(", JOptionPane.INFORMATION_MESSAGE);
             }
             revalidate();
             repaint();
@@ -323,7 +325,6 @@ public class GUI extends JFrame {
         //Se agrega el nombre del dado clickado en el area del texto
         mensajes.append("Ha seleccionado un "+dadoSeleccionado.nombreDado(dadoSeleccionado.getCaraOriginal())+"!! \n");
         control.setTirar(false);
-
         if(estaVacioDado(panelZonaActiva)){
 
         }else if(control.getRecuerdoCara() == 0){
@@ -348,6 +349,7 @@ public class GUI extends JFrame {
                 control.setContPuntaje2(control.getContPuntaje2()+1);
                 control.setContPuntaje(control.getContPuntaje() + control.getContPuntaje2());
 
+
                 //Cambio de marcador del puntaje
                 control.setContMarcadorPuntaje(control.getContMarcadorPuntaje()+1);
                 marcadorPuntaje.setIcon(control.getImagenMarcador());
@@ -355,6 +357,13 @@ public class GUI extends JFrame {
                 //Cambio del valor del puntaje
                 control.setContGuardadoPuntuacion( cont + control.getContPuntaje());
                 valorPuntuacion.setText("         "+control.getContGuardadoPuntuacion());
+
+                if(control.getContGuardadoPuntuacion() >= 50){
+                    tirar.setEnabled(false);
+                    JOptionPane.showMessageDialog(null,
+                            "Ganaste!! :D\n", ":D", JOptionPane.INFORMATION_MESSAGE);
+                    System.exit(0);
+                }
 
             }
             dadoSeleccionado.setDadosUtilizados(true);
