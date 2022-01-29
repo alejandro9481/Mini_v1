@@ -8,8 +8,6 @@
 package myProject;
 
 import java.util.Random;
-import java.awt.Color;
-import java.awt.Dimension;
 
 import javax.swing.*;
 
@@ -21,10 +19,8 @@ import javax.swing.*;
  */
 
 public class Dado extends JLabel {
-    /**
-     *	The attributes
-     */
-    private int cara, id;
+    /**     The attributes  */
+    private int cara;
     private ImageIcon image ;
     private boolean zonaActiva, zonaInactiva, dadosUtilizados;
     private String nombreCara;
@@ -34,12 +30,12 @@ public class Dado extends JLabel {
      *
      */
     public Dado(int idDado) {
-        this.id = idDado;
-
+        //Ciclo para revolver muchisimas veces mas el dado
         for(int u=0;u<50;u++) {
             getCara();
         }
 
+        //Para repintar la imagen
         this.setIcon(getImage());
 
     }
@@ -103,10 +99,6 @@ public class Dado extends JLabel {
         this.image = image;
     }
     public int getCaraOriginal() { return cara; }
-
-    public void setId(int id) { this.id = id; }
-
-    public int getId() { return id; }
 
     public boolean getZonaActiva() { return zonaActiva; }
 

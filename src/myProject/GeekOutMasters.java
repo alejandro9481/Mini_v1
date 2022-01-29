@@ -36,17 +36,17 @@ public class GeekOutMasters extends JFrame{
         this.imagenPuntaje = new JLabel( new ImageIcon ("src/resources/puntajes/MarcadorPuntaje_"+contMarcadorPuntaje+".png"));
     }
 
-    public int getContPuntaje() { return contPuntaje; }
+    public int getContGuardadoPuntuacion() { return contGuardadoPuntuacion; }
 
-    public void setContPuntaje(int contPuntaje) {
-        setContPuntaje2(contPuntaje2 + 1);
-        //System.out.println(contPuntaje);
-        this.contPuntaje = contPuntaje + contPuntaje2;
-    }
+    public void setContGuardadoPuntuacion(int contGuardadoPuntuacion) { this.contGuardadoPuntuacion = contGuardadoPuntuacion; }
 
     public int getContTurno() {return contTurno;}
 
     public void setContTurno(int contTurno) {this.contTurno = contTurno;}
+
+    public int getContPuntaje() { return contPuntaje; }
+
+    public void setContPuntaje(int contPuntaje) {this.contPuntaje = contPuntaje; }
 
     public int getContPuntaje2() { return contPuntaje2; }
 
@@ -67,4 +67,5 @@ public class GeekOutMasters extends JFrame{
     public int getRecuerdoCara() { return recuerdoCara; }
 
     public void setRecuerdoCara(int recuerdoCara) { this.recuerdoCara = recuerdoCara; }
+
 }

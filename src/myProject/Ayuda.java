@@ -36,8 +36,6 @@ public class Ayuda extends JFrame{
             this.setResizable(false);
             this.setLocationRelativeTo(null);
             this.setVisible(false);
-            //this.setVisible(true);
-
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -69,7 +67,6 @@ public class Ayuda extends JFrame{
             // TODO Auto-generated method stub
             //evento boton volver
             //activar la ventana GUI y hacer invisible ayuda
-
             GUI.setEnabled(true);
             setVisible(false);
         }
