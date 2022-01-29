@@ -82,12 +82,12 @@ public class GUI extends JFrame {
         //Zona del puntaje y de la marza
         panelPuntaje = new JPanel();
 
-            //Puntajes
-            turno = new JLabel("Turno:");
-            valorTurno = new JLabel("         "+control.getContTurno()+"                ");// turno 1 2 3 4 5
+        //Puntajes
+        turno = new JLabel("Turno:");
+        valorTurno = new JLabel("         "+control.getContTurno()+"                ");// turno 1 2 3 4 5
 
-            panelPuntaje.add(turno);
-            panelPuntaje.add(valorTurno);
+        panelPuntaje.add(turno);
+        panelPuntaje.add(valorTurno);
 
         panelPuntaje.setPreferredSize(new Dimension(300,120));
         //panelPuntaje.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
@@ -95,12 +95,12 @@ public class GUI extends JFrame {
         marcadorPuntaje = control.getImagenPuntaje();
         panelPuntaje.add(marcadorPuntaje);//añado la imagen
 
-            //Puntajes
-            puntuacion = new JLabel("         Puntuacion:");
-            valorPuntuacion = new JLabel("         "+control.getContGuardadoPuntuacion());// puntajes 1 3 6 10 15 21
+        //Puntajes
+        puntuacion = new JLabel("         Puntuacion:");
+        valorPuntuacion = new JLabel("         "+control.getContGuardadoPuntuacion());// puntajes 1 3 6 10 15 21
 
-            panelPuntaje.add(puntuacion);
-            panelPuntaje.add(valorPuntuacion);
+        panelPuntaje.add(puntuacion);
+        panelPuntaje.add(valorPuntuacion);
 
         //zona en donde no hay interacción
         this.add(panelPuntaje,BorderLayout.NORTH);
@@ -136,22 +136,22 @@ public class GUI extends JFrame {
         //panelAyuda.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         panelAyuda.setBorder(BorderFactory.createTitledBorder("Zona ayuda"));
 
-            //Trirar los dados
-            tirar = new JButton("tirar");
-            tirar.addActionListener(Escucha);
-            panelAyuda.add(tirar);
+        //Trirar los dados
+        tirar = new JButton("tirar");
+        tirar.addActionListener(Escucha);
+        panelAyuda.add(tirar);
 
-            //Area de texto
-            mensajes = new JTextArea(10,22);
-            mensajes.setText("Presiona en el botón ' tirar ' para iniciar.\n");
-            mensajes.setEditable(false);
-            JScrollPane scroll = new JScrollPane(mensajes);
-            panelAyuda.add(scroll);
+        //Area de texto
+        mensajes = new JTextArea(10,22);
+        mensajes.setText("Presiona en el botón ' tirar ' para iniciar.\n");
+        mensajes.setEditable(false);
+        JScrollPane scroll = new JScrollPane(mensajes);
+        panelAyuda.add(scroll);
 
-            //Mostrar la ayuda al usuario
-            ayudaImagen = new JButton("ayuda");
-            ayudaImagen.addActionListener(Escucha);
-            panelAyuda.add(ayudaImagen);
+        //Mostrar la ayuda al usuario
+        ayudaImagen = new JButton("ayuda");
+        ayudaImagen.addActionListener(Escucha);
+        panelAyuda.add(ayudaImagen);
 
         this.add(panelAyuda,BorderLayout.SOUTH);
     }
@@ -262,10 +262,10 @@ public class GUI extends JFrame {
 
             if(eventAction.getSource() == tirar){
 
-                    estaVacio(panelZonaActiva);
-                    //llama a la funcion para revolver los dados
-                    revolverJuego();
-                    mensajes.append("Ha realizado un tiro!! \n");
+                estaVacio(panelZonaActiva);
+                //llama a la funcion para revolver los dados
+                revolverJuego();
+                mensajes.append("Ha realizado un tiro!! \n");
 
             }else if(eventAction.getSource() == ayudaImagen){
                 //llamar a la ventana ayuda
@@ -307,8 +307,8 @@ public class GUI extends JFrame {
         dadoSeleccionado.setZonaInactiva(false);
 
         if(control.getRecuerdoCara() == 1 ||    //MEEPLE
-           control.getRecuerdoCara() == 4 ||    //SUPERHEROE
-           control.getRecuerdoCara() == 5){     //COHETE
+                control.getRecuerdoCara() == 4 ||    //SUPERHEROE
+                control.getRecuerdoCara() == 5){     //COHETE
 
             JOptionPane.showMessageDialog(null, "Selecciona un dado de Zona Activa",
                     "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -440,8 +440,8 @@ public class GUI extends JFrame {
         dadoSeleccionado.setZonaInactiva(true);
 
         if(control.getRecuerdoCara() == 1 ||    //MEEPLE
-           control.getRecuerdoCara() == 4 ||    //SUPERHEROE
-           control.getRecuerdoCara() == 5){     //COHETE
+                control.getRecuerdoCara() == 4 ||    //SUPERHEROE
+                control.getRecuerdoCara() == 5){     //COHETE
 
             JOptionPane.showMessageDialog(null, "Selecciona un dado de Zona Activa",
                     "Aviso", JOptionPane.INFORMATION_MESSAGE);
