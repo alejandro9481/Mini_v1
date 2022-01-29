@@ -187,6 +187,16 @@ public class GUI extends JFrame {
             }
         }
     }
+    private boolean estaVacioDado(JPanel panel){
+        int xxx = panel.getComponentCount();
+
+        if(xxx == 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     private void estaVacio(JPanel panel){
         int xxx = panel.getComponentCount();
 
@@ -241,28 +251,25 @@ public class GUI extends JFrame {
             //responde a los eventos de botones salir, reinicio, periodo e inicio
 
             if(eventAction.getSource() == tirar){
-                if(control.getContGuardadoPuntuacion() <= 50){
-                    tirar.setEnabled(false);
-                    JOptionPane.showMessageDialog(null,
-                            "Ganaste!! :D\n", ":D", JOptionPane.INFORMATION_MESSAGE);
-                }else if(control.getContTurno() == 5){
-                    tirar.setEnabled(false);
-                    JOptionPane.showMessageDialog(null,
-                            "Perdiste!! :(\n", ":(", JOptionPane.INFORMATION_MESSAGE);
-
-                }else{
                     estaVacio(panelZonaActiva);
 
                     //llama a la funcion para revolver los dados
                     revolverJuego();
                     mensajes.append("Ha realizado un tiro!! \n");
-                }
 
             }else if(eventAction.getSource() == ayudaImagen){
                 //llamar a la ventana ayuda
                 miMismo.setEnabled(false);
                 ventanaAyuda.setVisible(true);
                 mensajes.append("Ha solicitado ayuda!! \n");
+            }else if(control.getContGuardadoPuntuacion() <= 50){
+                tirar.setEnabled(false);
+                JOptionPane.showMessageDialog(null,
+                        "Ganaste!! :D\n", ":D", JOptionPane.INFORMATION_MESSAGE);
+            }else if(control.getContTurno() == 5){
+                tirar.setEnabled(false);
+                JOptionPane.showMessageDialog(null,
+                        "Perdiste!! :(\n", ":(", JOptionPane.INFORMATION_MESSAGE);
             }
             revalidate();
             repaint();
@@ -316,7 +323,10 @@ public class GUI extends JFrame {
         //Se agrega el nombre del dado clickado en el area del texto
         mensajes.append("Ha seleccionado un "+dadoSeleccionado.nombreDado(dadoSeleccionado.getCaraOriginal())+"!! \n");
         control.setTirar(false);
-        if(control.getRecuerdoCara() == 0){
+
+        if(estaVacioDado(panelZonaActiva)){
+
+        }else if(control.getRecuerdoCara() == 0){
 
             if(dadoSeleccionado.getCaraOriginal() == 2){//DRAGON
 
@@ -413,6 +423,7 @@ public class GUI extends JFrame {
             }
         }
     }
+
 
     private void segundoEscuchaInactivo(Dado dadoSeleccionado){
         dadoSeleccionado.setDadosUtilizados(false);
