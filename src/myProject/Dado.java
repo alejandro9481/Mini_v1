@@ -27,6 +27,7 @@ public class Dado extends JLabel {
     private int cara, id;
     private ImageIcon image ;
     private boolean zonaActiva, zonaInactiva, dadosUtilizados;
+    private String nombreCara;
 
     /**
      * Method that generate
@@ -61,9 +62,15 @@ public class Dado extends JLabel {
      */
     public int getSuperHeroe() {
         if(cara <=3){
-            return cara+3;
+            this.cara = cara+3;
+            this.image = new ImageIcon("src/resources/caras/"+cara+".png");
+            this.setIcon(getImage());
+            return cara;
         }else{
-            return cara-3;
+            this.cara = cara-3;
+            this.image = new ImageIcon("src/resources/caras/"+cara+".png");
+            this.setIcon(getImage());
+            return cara;
         }
     }
     public ImageIcon getNada() {
@@ -71,6 +78,22 @@ public class Dado extends JLabel {
         return image = new ImageIcon("src/resources/nada.png");
     }
 
+    public String nombreDado(int i) {
+        switch (i) {
+            // MEEPLE                               // DRAGON
+            case 1: nombreCara = "Meeple";break;       case 2: nombreCara =  "Dragon";break;
+
+            // CORAZON                              // COHETE
+            case 3: nombreCara = "Corazón";break;      case 4: nombreCara =  "Cohete";break;
+
+            // SUPERHEROE                           // 42
+            case 5: nombreCara = "Superheroe";break;   case 6: nombreCara = "42"; break;
+
+            default:
+        }
+        return nombreCara;
+
+    }
 
     public ImageIcon getImage() {
         return image = new ImageIcon("src/resources/caras/"+cara+".png");
